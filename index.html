@@ -842,6 +842,115 @@
     background: var(--surface-hover);
     color: var(--text-muted);
   }
+
+  /* Action buttons on content items */
+  .content-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 24px 12px;
+  }
+
+  .action-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .action-btn:hover {
+    border-color: var(--text-muted);
+    color: var(--text-secondary);
+  }
+
+  .action-btn-complete {
+    color: #0d7c4a;
+    border-color: #0d7c4a33;
+  }
+
+  .action-btn-complete:hover {
+    background: #0d7c4a0d;
+    border-color: #0d7c4a;
+    color: #0d7c4a;
+  }
+
+  .action-btn-delete:hover {
+    background: #dc26260d;
+    border-color: var(--youtube);
+    color: var(--youtube);
+  }
+
+  /* Pipeline completed list */
+  .completed-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .completed-item-title {
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  .completed-item-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .completed-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 4px;
+    background: #0d7c4a0d;
+    color: #0d7c4a;
+    flex-shrink: 0;
+  }
+
+  /* Ideas list */
+  .idea-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .idea-item-title {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+
+  .idea-item-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .idea-item-author {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
 </style>
 </head>
 <body>
@@ -862,8 +971,8 @@
         Dashboard
       </div>
       <div class="nav-item" onclick="switchView('pipeline')">
-        <span class="nav-icon">▤</span>
-        Pipeline
+        <span class="nav-icon">✓</span>
+        Completed
       </div>
       <div class="nav-item" onclick="switchView('ideas')">
         <span class="nav-icon">✦</span>
@@ -897,16 +1006,12 @@
           <h2>RESEARCHPRENEURS Content Operations</h2>
           <p>Internal content hub. Track pipeline, collect ideas, and coordinate across channels.</p>
         </div>
-        <div class="header-actions">
-          <button class="btn btn-primary" onclick="switchView('pipeline')">+ New Content</button>
-        </div>
       </div>
 
       <!-- Channel Roles — top of page -->
       <div class="section">
         <div class="section-header">
           <div class="section-title">Channel Roles</div>
-          <div class="section-badge">each serves a different purpose</div>
         </div>
         <div class="channel-grid">
           <div class="channel-card" data-ch="blog">
@@ -957,6 +1062,10 @@
                 <button onclick="addComment('1')">Post</button>
               </div>
             </div>
+            <div class="content-item-actions">
+              <button class="action-btn action-btn-complete" onclick="completeItem(this.closest('.content-item'))">✓ Complete</button>
+              <button class="action-btn action-btn-delete" onclick="deleteItem(this.closest('.content-item'))">Delete</button>
+            </div>
           </div>
 
           <div class="content-item" data-ch="blog">
@@ -981,6 +1090,10 @@
                 <button onclick="addComment('2')">Post</button>
               </div>
             </div>
+            <div class="content-item-actions">
+              <button class="action-btn action-btn-complete" onclick="completeItem(this.closest('.content-item'))">✓ Complete</button>
+              <button class="action-btn action-btn-delete" onclick="deleteItem(this.closest('.content-item'))">Delete</button>
+            </div>
           </div>
 
         </div>
@@ -992,47 +1105,18 @@
     <div class="view-section" id="view-pipeline">
       <div class="main-header">
         <div>
-          <h2>Content Pipeline</h2>
-          <p>All content across channels. Track status from idea through published.</p>
-        </div>
-        <div class="header-actions">
-          <button class="btn">Filter</button>
-          <button class="btn btn-primary">+ Add Content</button>
+          <h2>Completed</h2>
+          <p>Content marked as complete from the dashboard.</p>
         </div>
       </div>
 
-      <div class="tabs">
-        <div class="tab active">All</div>
-        <div class="tab">Blog</div>
-        <div class="tab">Newsletter</div>
-        <div class="tab">YouTube</div>
-        <div class="tab">Email</div>
+      <div style="display:flex; flex-direction:column; gap:10px;" id="completed-list">
+        <div class="empty-state" id="completed-empty">
+          <div class="empty-icon">✓</div>
+          <h3>No completed content yet</h3>
+          <p>When you mark content as complete on the dashboard, it appears here.</p>
+        </div>
       </div>
-
-      <table class="pipeline">
-        <thead>
-          <tr>
-            <th style="width:36%">Content</th>
-            <th style="width:12%">Channel</th>
-            <th style="width:12%">Status</th>
-            <th style="width:12%">Audience</th>
-            <th style="width:10%">Priority</th>
-            <th style="width:10%">Owner</th>
-            <th style="width:8%">Due</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td colspan="7">
-              <div class="empty-state" style="padding: 48px 20px;">
-                <div class="empty-icon">▤</div>
-                <h3>Pipeline is empty</h3>
-                <p>Add your first piece of content to start tracking progress across the team.</p>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </div>
 
     <!-- ===== IDEAS VIEW ===== -->
@@ -1040,14 +1124,41 @@
       <div class="main-header">
         <div>
           <h2>Ideas Board</h2>
-          <p>Capture ideas from team conversations, events, and competitor analysis. Anything goes here before it enters the pipeline.</p>
+          <p>Capture ideas from team conversations, events, and competitor analysis.</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-primary" onclick="document.getElementById('idea-form').style.display = document.getElementById('idea-form').style.display === 'none' ? 'flex' : 'none'">+ Add Idea</button>
         </div>
       </div>
 
-      <div class="ideas-grid">
-        <div class="idea-card add-new">
-          <span class="plus">+</span>
-          <span>Add an idea</span>
+      <!-- Add idea form -->
+      <div id="idea-form" style="display:none; gap:8px; margin-bottom:16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; flex-wrap:wrap; align-items:flex-end;">
+        <div style="flex:1; min-width:200px;">
+          <div style="font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); margin-bottom:4px;">Title</div>
+          <input type="text" id="idea-title" placeholder="e.g. Healthtech founder interview series" style="width:100%; font-family:'DM Sans',sans-serif; font-size:13px; padding:8px 12px; border:1px solid var(--border); border-radius:6px; background:var(--surface-raised); color:var(--text); outline:none;">
+        </div>
+        <div style="flex:2; min-width:250px;">
+          <div style="font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); margin-bottom:4px;">Description (optional)</div>
+          <input type="text" id="idea-desc" placeholder="Quick note on the idea..." style="width:100%; font-family:'DM Sans',sans-serif; font-size:13px; padding:8px 12px; border:1px solid var(--border); border-radius:6px; background:var(--surface-raised); color:var(--text); outline:none;">
+        </div>
+        <div>
+          <div style="font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); margin-bottom:4px;">By</div>
+          <select id="idea-author" style="font-family:'DM Sans',sans-serif; font-size:12px; padding:8px 10px; border:1px solid var(--border); border-radius:6px; background:var(--surface-raised); color:var(--text-secondary); outline:none; cursor:pointer;">
+            <option value="Tina">Tina</option>
+            <option value="Ecem">Ecem</option>
+            <option value="Shams">Shams</option>
+            <option value="Mehmet" selected>Mehmet</option>
+            <option value="Sefer">Sefer</option>
+          </select>
+        </div>
+        <button onclick="addIdea()" style="font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; padding:8px 16px; border-radius:6px; border:1px solid var(--border); background:var(--text); color:var(--bg); cursor:pointer;">Add</button>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;" id="ideas-list">
+        <div class="empty-state" id="ideas-empty">
+          <div class="empty-icon">✦</div>
+          <h3>No ideas yet</h3>
+          <p>Click "+ Add Idea" to start collecting content ideas from the team.</p>
         </div>
       </div>
     </div>
@@ -1152,6 +1263,8 @@
 </div>
 
 <script>
+  let commentCounter = 10;
+
   function switchView(view) {
     document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
     document.getElementById('view-' + view).classList.add('active');
@@ -1192,6 +1305,40 @@
     setTimeout(() => el.remove(), 150);
   }
 
+  function completeItem(el) {
+    const title = el.querySelector('.content-item-title').textContent;
+    const tag = el.querySelector('.channel-tag').textContent;
+    const topic = el.querySelector('.content-item-topic') ? el.querySelector('.content-item-topic').textContent : '';
+
+    const now = new Date();
+    const date = now.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+
+    // Remove empty state if present
+    const emptyState = document.getElementById('completed-empty');
+    if (emptyState) emptyState.remove();
+
+    // Add to completed list
+    const list = document.getElementById('completed-list');
+    const item = document.createElement('div');
+    item.className = 'completed-item';
+    item.innerHTML = `
+      <div>
+        <div class="completed-item-title">${title}</div>
+        <div class="completed-item-meta">${tag}${topic ? ' · ' + topic : ''} · Completed ${date}</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span class="completed-badge">Done</span>
+        <span class="comment-delete" onclick="deleteItem(this.closest('.completed-item'))" title="Delete">✕</span>
+      </div>
+    `;
+    list.appendChild(item);
+
+    // Remove from coming up
+    el.style.opacity = '0';
+    el.style.transition = 'opacity 0.15s ease';
+    setTimeout(() => el.remove(), 150);
+  }
+
   function addGap() {
     const title = document.getElementById('gap-title').value.trim();
     const desc = document.getElementById('gap-desc').value.trim();
@@ -1221,6 +1368,35 @@
     document.getElementById('gap-title').value = '';
     document.getElementById('gap-desc').value = '';
     document.getElementById('gap-form').style.display = 'none';
+  }
+
+  function addIdea() {
+    const title = document.getElementById('idea-title').value.trim();
+    const desc = document.getElementById('idea-desc').value.trim();
+    const author = document.getElementById('idea-author').value;
+    if (!title) return;
+
+    // Remove empty state if present
+    const emptyState = document.getElementById('ideas-empty');
+    if (emptyState) emptyState.remove();
+
+    const list = document.getElementById('ideas-list');
+    const item = document.createElement('div');
+    item.className = 'idea-item';
+
+    item.innerHTML = `
+      <div style="flex:1;">
+        <div class="idea-item-title">${title}</div>
+        ${desc ? `<div class="idea-item-desc">${desc}</div>` : ''}
+        <div class="idea-item-author">Added by ${author}</div>
+      </div>
+      <span class="comment-delete" onclick="deleteItem(this.closest('.idea-item'))" title="Delete" style="opacity:0.5;">✕</span>
+    `;
+
+    list.appendChild(item);
+    document.getElementById('idea-title').value = '';
+    document.getElementById('idea-desc').value = '';
+    document.getElementById('idea-form').style.display = 'none';
   }
 </script>
 
