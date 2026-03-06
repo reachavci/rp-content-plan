@@ -3,42 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RESEARCHPRENEURS — Content Plan</title>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>RESEARCHPRENEURS — Content Operations</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #faf9f7;
+    --bg: #f6f5f3;
     --surface: #ffffff;
-    --surface-alt: #f5f3f0;
-    --border: #e8e4df;
-    --border-light: #f0ece7;
+    --surface-raised: #fafaf9;
+    --surface-hover: #f0efed;
+    --border: #e4e2de;
+    --border-light: #eceae6;
     --text: #1a1815;
     --text-secondary: #6b6560;
     --text-muted: #9b958e;
+    --accent: #1a1815;
+    --accent-dim: #1a181508;
+    --accent-mid: #1a181518;
 
     --blog: #2563eb;
-    --blog-bg: #eff6ff;
-    --blog-border: #bfdbfe;
-    --newsletter: #d97706;
-    --newsletter-bg: #fffbeb;
-    --newsletter-border: #fde68a;
+    --blog-dim: #2563eb0d;
+    --newsletter: #c2780a;
+    --newsletter-dim: #c2780a0d;
     --youtube: #dc2626;
-    --youtube-bg: #fef2f2;
-    --youtube-border: #fecaca;
-    --media: #059669;
-    --media-bg: #ecfdf5;
-    --media-border: #a7f3d0;
+    --youtube-dim: #dc26260d;
+    --media: #0d7c4a;
+    --media-dim: #0d7c4a0d;
+    --email: #7c3aed;
+    --email-dim: #7c3aed0d;
 
-    --bofu: #7c3aed;
-    --bofu-bg: #f5f3ff;
-    --mofu: #2563eb;
-    --mofu-bg: #eff6ff;
-    --tofu: #059669;
-    --tofu-bg: #ecfdf5;
-
-    --startup: #2563eb;
-    --partner: #9333ea;
-    --general: #d97706;
+    --status-draft: #c2780a;
+    --status-review: #2563eb;
+    --status-published: #0d7c4a;
+    --status-idea: #9b958e;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -46,1087 +42,1187 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Outfit', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 400;
-    line-height: 1.65;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
   }
 
-  .page {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 48px 32px 80px;
+  /* ---- LAYOUT ---- */
+  .app {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 100vh;
   }
 
-  /* Header */
-  .header {
-    margin-bottom: 56px;
-    padding-bottom: 40px;
-    border-bottom: 2px solid var(--text);
+  /* ---- SIDEBAR ---- */
+  .sidebar {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 32px 0;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
   }
 
-  .header-eyebrow {
+  .sidebar-brand {
+    padding: 0 24px;
+    margin-bottom: 40px;
+  }
+
+  .sidebar-brand h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .sidebar-brand span {
     font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 2.5px;
+    color: var(--text-muted);
+  }
+
+  .sidebar-nav {
+    flex: 1;
+  }
+
+  .nav-section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--text-muted);
-    margin-bottom: 12px;
+    padding: 0 24px;
+    margin-bottom: 8px;
+    margin-top: 24px;
   }
 
-  .header h1 {
-    font-family: 'Instrument Serif', serif;
-    font-size: 42px;
-    font-weight: 400;
-    line-height: 1.15;
-    margin-bottom: 10px;
-  }
-
-  .header-sub {
-    font-size: 16px;
-    color: var(--text-secondary);
-    max-width: 640px;
-  }
-
-  /* Stats Strip */
-  .stats {
+  .nav-item {
     display: flex;
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 56px;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 24px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border-left: 2px solid transparent;
   }
 
-  .stat {
-    flex: 1;
-    background: var(--surface);
-    padding: 24px;
+  .nav-item:hover {
+    background: var(--surface-hover);
+    color: var(--text);
+  }
+
+  .nav-item.active {
+    color: var(--text);
+    border-left-color: var(--text);
+    background: var(--accent-dim);
+  }
+
+  .nav-icon {
+    width: 16px;
+    font-size: 14px;
     text-align: center;
+    flex-shrink: 0;
   }
 
-  .stat-num {
-    font-family: 'Instrument Serif', serif;
-    font-size: 40px;
-    line-height: 1;
+  .nav-count {
+    margin-left: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    background: var(--surface-hover);
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+
+  .sidebar-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .sidebar-footer .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--status-published);
+    display: inline-block;
+    margin-right: 6px;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ---- MAIN CONTENT ---- */
+  .main {
+    padding: 40px 48px 80px;
+    overflow-y: auto;
+  }
+
+  .main-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 48px;
+  }
+
+  .main-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.2;
     margin-bottom: 6px;
   }
 
-  .stat-label {
-    font-size: 11px;
+  .main-header p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    max-width: 480px;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
     font-weight: 600;
+    padding: 9px 18px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface-raised);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn:hover {
+    background: var(--surface-hover);
+    color: var(--text);
+    border-color: var(--text-muted);
+  }
+
+  .btn-primary {
+    background: var(--text);
+    color: var(--bg);
+    border-color: var(--text);
+  }
+
+  .btn-primary:hover {
+    background: #333;
+    color: var(--bg);
+    border-color: #333;
+  }
+
+  /* ---- STATS ROW ---- */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 48px;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+  }
+
+  .stat-card[data-channel="blog"]::before { background: var(--blog); }
+  .stat-card[data-channel="newsletter"]::before { background: var(--newsletter); }
+  .stat-card[data-channel="youtube"]::before { background: var(--youtube); }
+  .stat-card[data-channel="media"]::before { background: var(--media); }
+  .stat-card[data-channel="email"]::before { background: var(--email); }
+
+  .stat-label {
+    font-size: 10px;
+    font-weight: 700;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     color: var(--text-muted);
+    margin-bottom: 8px;
   }
 
-  .stat:nth-child(1) .stat-num { color: var(--blog); }
-  .stat:nth-child(2) .stat-num { color: var(--newsletter); }
-  .stat:nth-child(3) .stat-num { color: var(--youtube); }
-  .stat:nth-child(4) .stat-num { color: var(--media); }
+  .stat-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
 
-  /* Section */
+  .stat-card[data-channel="blog"] .stat-number { color: var(--blog); }
+  .stat-card[data-channel="newsletter"] .stat-number { color: var(--newsletter); }
+  .stat-card[data-channel="youtube"] .stat-number { color: var(--youtube); }
+  .stat-card[data-channel="media"] .stat-number { color: var(--media); }
+  .stat-card[data-channel="email"] .stat-number { color: var(--email); }
+
+  .stat-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* ---- SECTION ---- */
   .section {
-    margin-bottom: 56px;
+    margin-bottom: 48px;
   }
 
-  .section-head {
+  .section-header {
     display: flex;
-    align-items: baseline;
-    gap: 16px;
-    margin-bottom: 20px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
     padding-bottom: 12px;
     border-bottom: 1px solid var(--border);
   }
 
   .section-title {
-    font-family: 'Instrument Serif', serif;
-    font-size: 26px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
     font-weight: 400;
   }
 
   .section-badge {
-    font-size: 11px;
-    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
     letter-spacing: 1px;
+  }
+
+  /* ---- PIPELINE TABLE ---- */
+  .pipeline {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .pipeline thead th {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pipeline tbody tr {
+    border-bottom: 1px solid var(--border-light);
+    transition: background 0.1s ease;
+    cursor: pointer;
+  }
+
+  .pipeline tbody tr:hover {
+    background: var(--surface-raised);
+  }
+
+  .pipeline td {
+    padding: 16px;
+    font-size: 13px;
+    vertical-align: middle;
+  }
+
+  .pipeline-title {
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .pipeline-desc {
+    font-size: 11px;
     color: var(--text-muted);
   }
 
-  /* Three Column Principles */
-  .principles {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 12px;
+  .channel-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
   }
 
-  .principle {
+  .channel-blog { background: var(--blog-dim); color: var(--blog); }
+  .channel-newsletter { background: var(--newsletter-dim); color: var(--newsletter); }
+  .channel-youtube { background: var(--youtube-dim); color: var(--youtube); }
+  .channel-media { background: var(--media-dim); color: var(--media); }
+  .channel-email { background: var(--email-dim); color: var(--email); }
+
+  .status-tag {
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .status-tag::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .status-idea { color: var(--status-idea); }
+  .status-idea::before { background: var(--status-idea); }
+  .status-draft { color: var(--status-draft); }
+  .status-draft::before { background: var(--status-draft); }
+  .status-review { color: var(--status-review); }
+  .status-review::before { background: var(--status-review); }
+  .status-published { color: var(--status-published); }
+  .status-published::before { background: var(--status-published); }
+
+  .audience-tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 3px;
+    background: var(--surface-hover);
+    color: var(--text-secondary);
+  }
+
+  .priority-bar {
+    width: 40px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--border);
+  }
+
+  .priority-high {
+    background: linear-gradient(90deg, var(--accent), var(--accent-mid));
+  }
+
+  .priority-med {
+    background: linear-gradient(90deg, var(--newsletter), var(--newsletter-dim));
+    width: 26px;
+  }
+
+  .priority-low {
+    background: var(--text-muted);
+    width: 14px;
+  }
+
+  /* ---- IDEAS BOARD ---- */
+  .ideas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .idea-card {
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 28px 24px;
-    background: var(--surface);
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.15s ease;
     position: relative;
   }
 
-  .principle-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    border-radius: 10px 10px 0 0;
+  .idea-card:hover {
+    border-color: var(--text-muted);
+    background: var(--surface-raised);
   }
 
-  .principle[data-channel="blog"] .principle-bar { background: var(--blog); }
-  .principle[data-channel="newsletter"] .principle-bar { background: var(--newsletter); }
-  .principle[data-channel="youtube"] .principle-bar { background: var(--youtube); }
+  .idea-card.add-new {
+    border-style: dashed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 140px;
+    color: var(--text-muted);
+    gap: 8px;
+  }
 
-  .principle-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
+  .idea-card.add-new:hover {
+    border-color: var(--text);
+    color: var(--text);
+  }
+
+  .idea-card.add-new .plus {
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  .idea-card.add-new span {
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .idea-channel {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
-  .principle[data-channel="blog"] .principle-label { color: var(--blog); }
-  .principle[data-channel="newsletter"] .principle-label { color: var(--newsletter); }
-  .principle[data-channel="youtube"] .principle-label { color: var(--youtube); }
-
-  .principle-role {
-    font-family: 'Instrument Serif', serif;
-    font-size: 22px;
     margin-bottom: 8px;
   }
 
-  .principle-desc {
+  .idea-title {
     font-size: 14px;
-    color: var(--text-secondary);
-    line-height: 1.7;
-    margin-bottom: 16px;
-  }
-
-  .principle-meta {
-    border-top: 1px solid var(--border-light);
-    padding-top: 12px;
-    font-size: 13px;
-    color: var(--text-secondary);
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-  }
-
-  .principle-meta strong { color: var(--text); font-weight: 600; }
-
-  /* Flow */
-  .flow {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .flow-node {
-    padding: 12px 22px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    text-align: center;
+    font-weight: 500;
+    margin-bottom: 6px;
     line-height: 1.4;
   }
 
-  .flow-node small {
-    display: block;
-    font-weight: 400;
-    font-size: 11px;
-    opacity: 0.75;
-    margin-top: 2px;
-  }
-
-  .flow-media { background: var(--media-bg); border: 1px solid var(--media-border); color: var(--media); }
-  .flow-youtube { background: var(--youtube-bg); border: 1px solid var(--youtube-border); color: var(--youtube); }
-  .flow-newsletter { background: var(--newsletter-bg); border: 1px solid var(--newsletter-border); color: var(--newsletter); }
-  .flow-blog { background: var(--blog-bg); border: 1px solid var(--blog-border); color: var(--blog); }
-  .flow-pf { background: var(--surface-alt); border: 1px solid var(--border); color: var(--text); }
-
-  .flow-arrow { color: var(--text-muted); font-size: 18px; }
-
-  /* Funnel Explainer */
-  .funnel-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 12px;
-  }
-
-  .funnel-card {
-    border-radius: 10px;
-    padding: 20px 22px;
-    border: 1px solid;
-  }
-
-  .funnel-card[data-funnel="bofu"] { background: var(--bofu-bg); border-color: #ddd6fe; }
-  .funnel-card[data-funnel="mofu"] { background: var(--mofu-bg); border-color: var(--blog-border); }
-  .funnel-card[data-funnel="tofu"] { background: var(--tofu-bg); border-color: var(--media-border); }
-
-  .funnel-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-
-  .funnel-card[data-funnel="bofu"] .funnel-label { color: var(--bofu); }
-  .funnel-card[data-funnel="mofu"] .funnel-label { color: var(--mofu); }
-  .funnel-card[data-funnel="tofu"] .funnel-label { color: var(--tofu); }
-
-  .funnel-title {
-    font-family: 'Instrument Serif', serif;
-    font-size: 18px;
-    margin-bottom: 6px;
-  }
-
-  .funnel-desc {
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.65;
-  }
-
-  .funnel-count {
+  .idea-note {
     font-size: 12px;
-    font-weight: 600;
     color: var(--text-muted);
-    margin-top: 10px;
+    line-height: 1.5;
   }
 
-  /* Week Section */
-  .week {
-    margin-bottom: 48px;
-  }
-
-  .week-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 16px;
-  }
-
-  .week-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  /* Content Card */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 24px 28px;
-    display: grid;
-    grid-template-columns: 1fr 280px;
-    gap: 24px;
-    border-left: 4px solid transparent;
-  }
-
-  .card[data-type="blog"] { border-left-color: var(--blog); }
-  .card[data-type="newsletter"] { border-left-color: var(--newsletter); }
-  .card[data-type="youtube"] { border-left-color: var(--youtube); }
-  .card[data-type="media"] { border-left-color: var(--media); }
-
-  .card-main {}
-
-  .card-top {
+  .idea-meta {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 8px;
-    flex-wrap: wrap;
-  }
-
-  .card-channel {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-  }
-
-  .card[data-type="blog"] .card-channel { color: var(--blog); }
-  .card[data-type="newsletter"] .card-channel { color: var(--newsletter); }
-  .card[data-type="youtube"] .card-channel { color: var(--youtube); }
-  .card[data-type="media"] .card-channel { color: var(--media); }
-
-  .card-funnel {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 2px 8px;
-    border-radius: 4px;
-  }
-
-  .funnel-bofu { background: var(--bofu-bg); color: var(--bofu); }
-  .funnel-mofu { background: var(--mofu-bg); color: var(--mofu); }
-  .funnel-tofu { background: var(--tofu-bg); color: var(--tofu); }
-
-  .card-title {
-    font-family: 'Instrument Serif', serif;
-    font-size: 20px;
-    line-height: 1.3;
-    margin-bottom: 8px;
-  }
-
-  .card-desc {
-    font-size: 13.5px;
-    color: var(--text-secondary);
-    line-height: 1.7;
-  }
-
-  .card-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
+    gap: 8px;
     margin-top: 12px;
-  }
-
-  .tag {
+    padding-top: 10px;
+    border-top: 1px solid var(--border-light);
     font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    padding: 3px 10px;
-    border-radius: 20px;
-  }
-
-  .tag-startup { background: #eff6ff; color: var(--startup); }
-  .tag-partner { background: #f5f3ff; color: var(--partner); }
-  .tag-general { background: #fffbeb; color: var(--general); }
-  .tag-cta { background: var(--surface-alt); color: var(--text-muted); }
-  .tag-link { background: var(--surface-alt); color: var(--text-secondary); font-style: italic; }
-
-  /* Data Needed Sidebar */
-  .card-data {
-    border-left: 1px solid var(--border-light);
-    padding-left: 24px;
-    font-size: 12.5px;
-    line-height: 1.7;
-  }
-
-  .card-data-title {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
     color: var(--text-muted);
-    margin-bottom: 8px;
   }
 
-  .data-item {
-    margin-bottom: 10px;
-  }
-
-  .data-source {
-    font-weight: 600;
-    color: var(--text);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .data-source.from-team { color: var(--bofu); }
-  .data-source.from-web { color: var(--media); }
-
-  .data-detail {
-    color: var(--text-secondary);
-    font-size: 12px;
-  }
-
-  /* Guiding Principles */
-  .principles-grid {
+  /* ---- CHANNEL STRATEGY ---- */
+  .channel-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
   }
 
-  .gp-card {
+  .channel-card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 24px;
+    position: relative;
+    overflow: hidden;
   }
 
-  .gp-title {
-    font-weight: 700;
-    font-size: 14px;
+  .channel-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+  }
+
+  .channel-card[data-ch="blog"]::before { background: var(--blog); }
+  .channel-card[data-ch="newsletter"]::before { background: var(--newsletter); }
+  .channel-card[data-ch="youtube"]::before { background: var(--youtube); }
+
+  .channel-card-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .channel-card[data-ch="blog"] .channel-card-label { color: var(--blog); }
+  .channel-card[data-ch="newsletter"] .channel-card-label { color: var(--newsletter); }
+  .channel-card[data-ch="youtube"] .channel-card-label { color: var(--youtube); }
+
+  .channel-card-role {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
     margin-bottom: 8px;
   }
 
-  .gp-text {
-    font-size: 13.5px;
+  .channel-card-desc {
+    font-size: 13px;
     color: var(--text-secondary);
-    line-height: 1.7;
+    line-height: 1.6;
+    margin-bottom: 16px;
   }
 
-  /* Questions Section */
-  .questions-list {
+  .channel-card-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .channel-card-meta strong {
+    color: var(--text-secondary);
+  }
+
+  /* ---- EMPTY STATE ---- */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+  }
+
+  .empty-state .empty-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+    opacity: 0.4;
+  }
+
+  .empty-state h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    font-weight: 400;
+  }
+
+  .empty-state p {
+    font-size: 13px;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 1024px) {
+    .app { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .stats-row { grid-template-columns: repeat(3, 1fr); }
+    .ideas-grid { grid-template-columns: repeat(2, 1fr); }
+    .channel-grid { grid-template-columns: 1fr; }
+    .main { padding: 24px; }
+  }
+
+  /* ---- SCROLLBAR ---- */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+  /* ---- TABS ---- */
+  .tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tab {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    padding: 10px 20px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s ease;
+    margin-bottom: -1px;
+  }
+
+  .tab:hover { color: var(--text-secondary); }
+
+  .tab.active {
+    color: var(--text);
+    border-bottom-color: var(--text);
+  }
+
+  /* ---- VIEW SECTIONS ---- */
+  .view-section { display: none; }
+  .view-section.active { display: block; }
+
+  /* ---- CONTENT CARDS WITH COMMENTS ---- */
+  .content-item {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 28px;
+    border-left: 3px solid var(--blog);
+    overflow: hidden;
   }
 
-  .question {
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border-light);
-    font-size: 14px;
-    color: var(--text);
-    display: grid;
-    grid-template-columns: 20px 1fr;
-    gap: 10px;
+  .content-item[data-ch="youtube"] { border-left-color: var(--youtube); }
+  .content-item[data-ch="newsletter"] { border-left-color: var(--newsletter); }
+
+  .content-item-body {
+    padding: 20px 24px;
   }
 
-  .question:last-child { border-bottom: none; }
+  .content-item-tag-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
 
-  .q-num {
-    font-weight: 700;
+  .content-item-topic {
+    font-size: 11px;
     color: var(--text-muted);
-    font-size: 12px;
   }
 
-  /* Responsive */
-  @media (max-width: 800px) {
-    .principles, .funnel-row { grid-template-columns: 1fr; }
-    .card { grid-template-columns: 1fr; }
-    .card-data { border-left: none; padding-left: 0; border-top: 1px solid var(--border-light); padding-top: 16px; }
-    .stats { flex-direction: column; }
-    .flow { flex-direction: column; }
-    .flow-arrow { transform: rotate(90deg); }
-    .principles-grid { grid-template-columns: 1fr; }
+  .content-item-title {
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+
+  .content-item-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* Comment area */
+  .comments-area {
+    border-top: 1px solid var(--border-light);
+    padding: 0 24px;
+  }
+
+  .comment {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 13px;
+  }
+
+  .comment:last-of-type {
+    border-bottom: none;
+  }
+
+  .comment-author {
+    font-weight: 600;
+    font-size: 11px;
+    color: var(--text);
+    background: var(--surface-hover);
+    padding: 2px 8px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    letter-spacing: 0.3px;
+  }
+
+  .comment-text {
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .comment-time {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .add-comment-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 0;
+  }
+
+  .add-comment-row input {
+    flex: 1;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    padding: 7px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface-raised);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+
+  .add-comment-row input:focus {
+    border-color: var(--text-muted);
+  }
+
+  .add-comment-row input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .add-comment-row select {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    padding: 7px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface-raised);
+    color: var(--text-secondary);
+    outline: none;
+    cursor: pointer;
+  }
+
+  .add-comment-row button {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--text);
+    color: var(--bg);
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .add-comment-row button:hover {
+    background: #333;
+  }
+
+  .comment-delete {
+    font-size: 11px;
+    color: var(--text-muted);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    flex-shrink: 0;
+    padding: 0 4px;
+  }
+
+  .comment:hover .comment-delete {
+    opacity: 1;
+  }
+
+  .comment-delete:hover {
+    color: var(--youtube);
+  }
+
+  .priority-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 4px;
+  }
+
+  .priority-label-high {
+    background: #dc26260d;
+    color: var(--youtube);
+  }
+
+  .priority-label-medium {
+    background: #c2780a0d;
+    color: var(--newsletter);
+  }
+
+  .priority-label-low {
+    background: var(--surface-hover);
+    color: var(--text-muted);
   }
 </style>
 </head>
 <body>
-<div class="page">
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="header-eyebrow">Researchpreneurs · Copywriter Internship · March 2026</div>
-    <h1>One-Month Content Plan</h1>
-    <p class="header-sub">A content system designed for conversion and brand positioning. every piece connects to a real RESEARCHPRENEURS service, every channel serves a distinct purpose.</p>
-  </header>
+<div class="app">
 
-  <!-- STATS -->
-  <div class="stats">
-    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Blog Articles</div></div>
-    <div class="stat"><div class="stat-num">4</div><div class="stat-label">Newsletter Editions</div></div>
-    <div class="stat"><div class="stat-num">2</div><div class="stat-label">YouTube Scripts</div></div>
-    <div class="stat"><div class="stat-num">1</div><div class="stat-label">Media Pitch</div></div>
-  </div>
-
-  <!-- CHANNEL ROLES -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-title">Channel Roles</div>
-      <div class="section-badge">Each serves a different purpose</div>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <h1>Researchpreneurs</h1>
+      <span>Content Operations</span>
     </div>
-    <div class="principles">
-      <div class="principle" data-channel="blog">
-        <div class="principle-bar"></div>
-        <div class="principle-label">Blog</div>
-        <div class="principle-role">The Answer</div>
-        <div class="principle-desc">Educates through frameworks, guides, and comparisons. Reader leaves knowing what to do. Mix of bottom, middle, and top of funnel content for balanced conversion.</div>
-        <div class="principle-meta">
-          <span><strong>Cadence:</strong> 2 per week</span>
-          <span><strong>Length:</strong> ~1,000 words</span>
-          <span><strong>Tone:</strong> Practical, research-backed</span>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
+      <div class="nav-item active" onclick="switchView('dashboard')">
+        <span class="nav-icon">◻</span>
+        Dashboard
+      </div>
+      <div class="nav-item" onclick="switchView('pipeline')">
+        <span class="nav-icon">▤</span>
+        Pipeline
+      </div>
+      <div class="nav-item" onclick="switchView('ideas')">
+        <span class="nav-icon">✦</span>
+        Ideas
+      </div>
+
+      <div class="nav-section-label">Resources</div>
+      <div class="nav-item" onclick="switchView('gaps')">
+        <span class="nav-icon">△</span>
+        Content Gaps
+      </div>
+      <div class="nav-item" onclick="switchView('notes')">
+        <span class="nav-icon">¶</span>
+        Team Notes
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <span><span class="status-dot"></span>Last updated: Mar 7, 2026</span>
+      <span>v1.0 — Internal use only</span>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ===== DASHBOARD VIEW ===== -->
+    <div class="view-section active" id="view-dashboard">
+      <div class="main-header">
+        <div>
+          <h2>RESEARCHPRENEURS Content Operations</h2>
+          <p>Internal content hub. Track pipeline, collect ideas, and coordinate across channels.</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-primary" onclick="switchView('pipeline')">+ New Content</button>
         </div>
       </div>
-      <div class="principle" data-channel="newsletter">
-        <div class="principle-bar"></div>
-        <div class="principle-label">Newsletter</div>
-        <div class="principle-role">The Provocation</div>
-        <div class="principle-desc">Challenges one assumption per edition. Makes readers need the answer — the blog is where they go to get it. Reviving "Innovate with Experts" (3,386 subscribers dormant 1 year).</div>
-        <div class="principle-meta">
-          <span><strong>Cadence:</strong> 1 per week (LinkedIn)</span>
-          <span><strong>Length:</strong> 300 words max</span>
-          <span><strong>Tone:</strong> Punchy, opinionated</span>
+
+      <!-- Channel Roles — top of page -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">Channel Roles</div>
+          <div class="section-badge">each serves a different purpose</div>
+        </div>
+        <div class="channel-grid">
+          <div class="channel-card" data-ch="blog">
+            <div class="channel-card-label">Blog</div>
+            <div class="channel-card-role">The Answer</div>
+            <div class="channel-card-desc">Research-backed frameworks, industry deep dives, and practical guides. Three types: conversion articles for solution-seekers, education pieces on specific industry challenges, and attraction content positioning RESEARCHPRENEURS in the European R&D ecosystem. Every article connects to a real service.</div>
+          </div>
+          <div class="channel-card" data-ch="youtube">
+            <div class="channel-card-label">YouTube</div>
+            <div class="channel-card-role">The Demonstration</div>
+            <div class="channel-card-desc">Shows what text can't. Pathfinder in action solving real bottlenecks, platform walkthroughs demonstrating full orchestration, and RESEARCHPRENEURS R&D concepts and services visualized. AI-produced video where script quality is the differentiator.</div>
+          </div>
+          <div class="channel-card" data-ch="newsletter">
+            <div class="channel-card-label">Newsletter</div>
+            <div class="channel-card-role">The Signal</div>
+            <div class="channel-card-desc">Insider patterns from the RESEARCHPRENEURS network — what the team sees across 850+ experts that no one else can report on. One sharp observation per edition. Short, opinionated, drives to the blog for depth. Reviving "Innovate with Experts" on LinkedIn (3,386 dormant subscribers).</div>
+          </div>
         </div>
       </div>
-      <div class="principle" data-channel="youtube">
-        <div class="principle-bar"></div>
-        <div class="principle-label">YouTube</div>
-        <div class="principle-role">The Demonstration</div>
-        <div class="principle-desc">Shows what text can't. Visual proof, live walkthroughs. Reaches new audience through search. AI video tool for production. Broadest reach channel.</div>
-        <div class="principle-meta">
-          <span><strong>Cadence:</strong> 2 per month</span>
-          <span><strong>Length:</strong> 2–5 minutes</span>
-          <span><strong>Tone:</strong> Visual, proof-driven</span>
+
+      <!-- Content Line — what's coming next -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">Coming Up</div>
+          <div class="section-badge">next in line</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px;" id="coming-up-list">
+
+          <div class="content-item" data-ch="blog">
+            <div class="content-item-body">
+              <div class="content-item-tag-row">
+                <span class="channel-tag channel-blog">Blog</span>
+                <span class="content-item-topic">Partner & Ecosystem</span>
+              </div>
+              <div class="content-item-title">Article 1 — Startup Hubs & Accelerators</div>
+              <div class="content-item-desc">The gap between what accelerators offer (mentorship, funding, pitch training) and what startups actually need when they hit R&D execution bottlenecks. Positions R&D orchestration as the missing support layer for ecosystem operators.</div>
+            </div>
+            <div class="comments-area" id="comments-1">
+              <div class="add-comment-row">
+                <select id="author-1">
+                  <option value="Tina">Tina</option>
+                  <option value="Ecem">Ecem</option>
+                  <option value="Shams">Shams</option>
+                  <option value="Mehmet">Mehmet</option>
+                  <option value="Sefer">Sefer</option>
+                </select>
+                <input type="text" id="input-1" placeholder="Add a comment..." onkeydown="if(event.key==='Enter')addComment('1')">
+                <button onclick="addComment('1')">Post</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-item" data-ch="blog">
+            <div class="content-item-body">
+              <div class="content-item-tag-row">
+                <span class="channel-tag channel-blog">Blog</span>
+                <span class="content-item-topic">Investor</span>
+              </div>
+              <div class="content-item-title">Article 2 — What Investors Evaluate in Technical Due Diligence</div>
+              <div class="content-item-desc">Dual audience: founders preparing to fundraise and investors themselves. What a structured R&D pipeline signals to investors, and how RESEARCHPRENEURS provides the validation layer.</div>
+            </div>
+            <div class="comments-area" id="comments-2">
+              <div class="add-comment-row">
+                <select id="author-2">
+                  <option value="Tina">Tina</option>
+                  <option value="Ecem">Ecem</option>
+                  <option value="Shams">Shams</option>
+                  <option value="Mehmet">Mehmet</option>
+                  <option value="Sefer">Sefer</option>
+                </select>
+                <input type="text" id="input-2" placeholder="Add a comment..." onkeydown="if(event.key==='Enter')addComment('2')">
+                <button onclick="addComment('2')">Post</button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- CONTENT ENGINE -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-title">Content Engine</div>
-      <div class="section-badge">How everything connects</div>
     </div>
-    <div class="flow">
-      <div class="flow-node flow-media">Media Article<small>External credibility</small></div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-node flow-youtube">YouTube<small>New audience via search</small></div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-node flow-newsletter">Newsletter<small>Provokes curiosity</small></div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-node flow-blog">Blog<small>Delivers depth</small></div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-node flow-pf">Pathfinder<small>Converts</small></div>
-    </div>
-  </div>
 
-  <!-- FUNNEL STRATEGY -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-title">Blog Funnel Mix</div>
-      <div class="section-badge">Not all educational — balanced for conversion</div>
-    </div>
-    <div class="funnel-row">
-      <div class="funnel-card" data-funnel="bofu">
-        <div class="funnel-label">Bottom of Funnel</div>
-        <div class="funnel-title">Converts</div>
-        <div class="funnel-desc">High-intent, decision-stage content. Catches readers actively making a buying decision. Comparison content, product-led tutorials, objection handling.</div>
-        <div class="funnel-count">3 articles</div>
+    <!-- ===== PIPELINE VIEW ===== -->
+    <div class="view-section" id="view-pipeline">
+      <div class="main-header">
+        <div>
+          <h2>Content Pipeline</h2>
+          <p>All content across channels. Track status from idea through published.</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn">Filter</button>
+          <button class="btn btn-primary">+ Add Content</button>
+        </div>
       </div>
-      <div class="funnel-card" data-funnel="mofu">
-        <div class="funnel-label">Middle of Funnel</div>
-        <div class="funnel-title">Educates</div>
-        <div class="funnel-desc">Frameworks, guides, and industry-specific depth. Builds trust and positions Researchpreneurs as the expert source. Reader leaves informed.</div>
-        <div class="funnel-count">3 articles</div>
+
+      <div class="tabs">
+        <div class="tab active">All</div>
+        <div class="tab">Blog</div>
+        <div class="tab">Newsletter</div>
+        <div class="tab">YouTube</div>
+        <div class="tab">Email</div>
       </div>
-      <div class="funnel-card" data-funnel="tofu">
-        <div class="funnel-label">Top of Funnel</div>
-        <div class="funnel-title">Attracts</div>
-        <div class="funnel-desc">Brand positioning and ecosystem content. Brings new audience through organic search and social sharing. Builds authority in the European R&D space.</div>
-        <div class="funnel-count">2 articles</div>
-      </div>
-    </div>
-  </div>
 
-  <!-- WEEK 1 -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-title">Weekly Breakdown</div>
-      <div class="section-badge">Blog + Newsletter + YouTube + Media</div>
-    </div>
-
-    <div class="week">
-      <div class="week-label">Week 1</div>
-      <div class="week-grid">
-
-        <div class="card" data-type="blog">
-          <div class="card-main">
-            <div class="card-top">
-              <span class="card-channel">Blog 1</span>
-              <span class="card-funnel funnel-bofu">BOFU</span>
-            </div>
-            <div class="card-title">Fractional R&D Experts vs. Full-Time Hires: A Cost and Speed Comparison</div>
-            <div class="card-desc">Honest decision framework with real numbers. When to hire, when to outsource, what the actual cost difference looks like at each stage. Product-led: weaves RP's fractional model into the comparison naturally.</div>
-            <div class="card-tags">
-              <span class="tag tag-startup">Startups</span>
-              <span class="tag tag-cta">CTA → Pathfinder</span>
-            </div>
-          </div>
-          <div class="card-data">
-            <div class="card-data-title">Data Needed</div>
-            <div class="data-item">
-              <div class="data-source from-team">From Team</div>
-              <div class="data-detail">Average project cost on RP, typical timelines, client cost savings examples (anonymized ok)</div>
-            </div>
-            <div class="data-item">
-              <div class="data-source from-web">From Web</div>
-              <div class="data-detail">R&D salary data DACH/Europe, startup R&D budget benchmarks, fractional talent market growth stats</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" data-type="blog">
-          <div class="card-main">
-            <div class="card-top">
-              <span class="card-channel">Blog 2</span>
-              <span class="card-funnel funnel-mofu">MOFU</span>
-            </div>
-            <div class="card-title">Smart R&D Budgeting: A Stage-by-Stage Guide for Seed to Series A</div>
-            <div class="card-desc">Practical budgeting framework. How much to allocate at each stage, on what, when to unlock more. Naturally demonstrates the discipline of problem-first budgeting that Pathfinder enables.</div>
-            <div class="card-tags">
-              <span class="tag tag-startup">Startups</span>
-              <span class="tag tag-cta">CTA → Pathfinder</span>
-              <span class="tag tag-link">↔ Newsletter Ed. 1</span>
-            </div>
-          </div>
-          <div class="card-data">
-            <div class="card-data-title">Data Needed</div>
-            <div class="data-item">
-              <div class="data-source from-team">From Team</div>
-              <div class="data-detail">How Pathfinder handles budget estimation, typical ranges by startup stage, what the founder sees across the network</div>
-            </div>
-            <div class="data-item">
-              <div class="data-source from-web">From Web</div>
-              <div class="data-detail">Startup R&D spending benchmarks by funding stage, European startup funding reports (Dealroom, Crunchbase)</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" data-type="newsletter">
-          <div class="card-main">
-            <div class="card-top">
-              <span class="card-channel">Newsletter Ed. 1 — Revival</span>
-            </div>
-            <div class="card-title">You're Probably Solving a Problem That Doesn't Exist</div>
-            <div class="card-desc">Provocation: Most founders have never validated what their actual R&D bottleneck is. One uncomfortable question — no answer. The blog has that. Spotlight: Platform growth from 400 → 850+ experts, shift to full orchestration.</div>
-            <div class="card-tags">
-              <span class="tag tag-startup">Startups</span>
-              <span class="tag tag-cta">CTA → Pathfinder</span>
-              <span class="tag tag-link">Links to → Blog 2</span>
-            </div>
-          </div>
-          <div class="card-data">
-            <div class="card-data-title">Data Needed</div>
-            <div class="data-item">
-              <div class="data-source from-team">From Team</div>
-              <div class="data-detail">Confirm expert count, new features since last newsletter, any milestone worth spotlighting</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <table class="pipeline">
+        <thead>
+          <tr>
+            <th style="width:36%">Content</th>
+            <th style="width:12%">Channel</th>
+            <th style="width:12%">Status</th>
+            <th style="width:12%">Audience</th>
+            <th style="width:10%">Priority</th>
+            <th style="width:10%">Owner</th>
+            <th style="width:8%">Due</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="7">
+              <div class="empty-state" style="padding: 48px 20px;">
+                <div class="empty-icon">▤</div>
+                <h3>Pipeline is empty</h3>
+                <p>Add your first piece of content to start tracking progress across the team.</p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-    <!-- WEEK 2 -->
-    <div class="week">
-      <div class="week-label">Week 2</div>
-      <div class="week-grid">
-
-        <div class="card" data-type="blog">
-          <div class="card-main">
-            <div class="card-top">
-              <span class="card-channel">Blog 3</span>
-              <span class="card-funnel funnel-bofu">BOFU</span>
-            </div>
-            <div class="card-title">How to Scope Your First R&D Project (Step-by-Step)</div>
-            <div class="card-desc">Product-led tutorial. Walks the reader through scoping an R&D project from problem definition through budget estimation. Shows Pathfinder in action within the narrative — not just as a CTA at the bottom.</div>
-            <div class="card-tags">
-              <span class="tag tag-startup">Startups</span>
-              <span class="tag tag-cta">CTA → Pathfinder (embedded)</span>
-            </div>
-          </div>
-          <div class="card-data">
-            <div class="card-data-title">Data Needed</div>
-            <div class="data-item">
-              <div class="data-source from-team">From Team</div>
-              <div class="data-detail">Pathfinder walkthrough access, screenshots/screen recording of a real result, understanding of output format</div>
-            </div>
-            <div class="data-item">
-              <div class="data-source from-web">From Web</div>
-              <div class="data-detail">R&D project scoping best practices, common scoping mistakes in startups</div>
-            </div>
-          </div>
+    <!-- ===== IDEAS VIEW ===== -->
+    <div class="view-section" id="view-ideas">
+      <div class="main-header">
+        <div>
+          <h2>Ideas Board</h2>
+          <p>Capture ideas from team conversations, events, and competitor analysis. Anything goes here before it enters the pipeline.</p>
         </div>
+      </div>
 
-        <div class="card" data-type="blog">
-          <div class="card-main">
-            <div class="card-top">
-              <span class="card-channel">Blog 4</span>
-              <span class="card-funnel funnel-mofu">MOFU</span>
-            </div>
-            <div class="card-title">What Investors Actually Evaluate in R&D Due Diligence</div>
-            <div class="card-desc">Dual audience: founders preparing to fundraise + investors/partners themselves. Practical checklist of what to have in place. Structured R&D pipeline as a signal of maturity and fundability.</div>
-            <div class="card-tags">
-              <span class="tag tag-partner">Partners / Investors</span>
-              <span class="tag tag-cta">CTA → Pathfinder + Partner page</span>
-              <span class="tag tag-link">↔ Newsletter Ed. 3</span>
-            </div>
-          </div>
-          <div class="card-data">
-            <div class="card-data-title">Data Needed</div>
-            <div class="data-item">
-              <div class="data-source from-team">From Team</div>
-              <div class="data-detail">Has founder/team worked with investors who shared what they evaluate? Partner feedback on why they chose RP?</div>
-            </div>
-            <div class="data-item">
-              <div class="data-source from-web">From Web</div>
-              <div class="data-detail">VC due diligence frameworks, European investor surveys, Sifted/EU-Startups articles on what VCs prioritize</div>
-            </div>
-          </div>
+      <div class="ideas-grid">
+        <div class="idea-card add-new">
+          <span class="plus">+</span>
+          <span>Add an idea</span>
         </div>
-
-        <div class="card" data-type="newsletter">
-          <div class="card-main">
-            <div class="card-top">
-              <span class="card-channel">Newsletter Ed. 2</span>
-            </div>
-            <div class="card-title">Your Best Hire Right Now Might Not Be a Hire</div>
-            <div class="card-desc">Provocation via micro-story: Two startups, same stage, same funding. One hired 3 full-time R&D staff. The other scoped 3 projects with fractional experts. Six months later — only one shipped. No lecture, just the story.</div>
-            <div class="card-tags">
-              <span class="tag tag-startup">Startups</span>
-              <span class="tag tag-cta">CTA → Pathfinder</span>
-              <span class="tag tag-link">Links to → Blog 1</span>
-            </div>
-          </div>
-          <div class="card-data">
-            <div class="card-data-title">Data Needed</div>
-            <div class="data-item">
-              <div class="data-source from-team">From Team</div>
-              <div class="data-detail">Real or composite client comparison story if available. Expert spotlight candidate for the edition.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" data-type="youtube">
-          <div class="card-main">
-            <div class="card-top">
-              <span class="card-channel">YouTube Video 1</span>
-              <span class="card-funnel funnel-mofu">MOFU</span>
-            </div>
-            <div class="card-title">We Analyzed a Startup's R&D Strategy — Here's What We Found</div>
-            <div class="card-desc">Take a realistic startup scenario, run it through Pathfinder live on screen, reveal the bottleneck they didn't see. Educational and a product demonstration without feeling like an ad. Existing Pathfinder walkthrough video covers the feature tour — this shows the tool solving a real problem.</div>
-            <div class="card-tags">
-              <span class="tag tag-startup">Startups</span>
-              <span class="tag tag-cta">CTA → Pathfinder (description)</span>
-            </div>
-          </div>
-          <div class="card-data">
-            <div class="card-data-title">Data Needed</div>
-            <div class="data-item">
-              <div class="data-source from-team">From Team</div>
-              <div class="data-detail">Realistic startup scenario (composite from real clients), Pathfinder access for screen recording, AI video tool access</div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 
-    <!-- WEEK 3 -->
-    <div class="week">
-      <div class="week-label">Week 3</div>
-      <div class="week-grid">
+    <!-- ===== CONTENT GAPS VIEW ===== -->
+    <div class="view-section" id="view-gaps">
+      <div class="main-header">
+        <div>
+          <h2>Content Gaps</h2>
+          <p>Content needed priorities</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-primary" onclick="document.getElementById('gap-form').style.display = document.getElementById('gap-form').style.display === 'none' ? 'flex' : 'none'">+ Add Content Idea</button>
+        </div>
+      </div>
 
-        <div class="card" data-type="blog">
-          <div class="card-main">
-            <div class="card-top">
-              <span class="card-channel">Blog 5</span>
-              <span class="card-funnel funnel-bofu">BOFU</span>
-            </div>
-            <div class="card-title">R&D Outsourcing: What Went Wrong and How the New Model Fixes It</div>
-            <div class="card-desc">Objection handling. Founders burned by offshore dev shops, no IP protection, no accountability. Reframes the problem: it wasn't external help — it was no structure. Modern orchestration as the fix.</div>
-            <div class="card-tags">
-              <span class="tag tag-startup">Startups</span>
-              <span class="tag tag-cta">CTA → Pathfinder</span>
-              <span class="tag tag-link">↔ Newsletter Ed. 4</span>
-            </div>
+      <!-- Add form (hidden by default) -->
+      <div id="gap-form" style="display:none; gap:8px; margin-bottom:16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; flex-wrap:wrap; align-items:flex-end;">
+        <div style="flex:1; min-width:200px;">
+          <div style="font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); margin-bottom:4px;">Title</div>
+          <input type="text" id="gap-title" placeholder="e.g. No healthtech deep dive" style="width:100%; font-family:'DM Sans',sans-serif; font-size:13px; padding:8px 12px; border:1px solid var(--border); border-radius:6px; background:var(--surface-raised); color:var(--text); outline:none;">
+        </div>
+        <div style="flex:2; min-width:250px;">
+          <div style="font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); margin-bottom:4px;">Description</div>
+          <input type="text" id="gap-desc" placeholder="Short description of the gap..." style="width:100%; font-family:'DM Sans',sans-serif; font-size:13px; padding:8px 12px; border:1px solid var(--border); border-radius:6px; background:var(--surface-raised); color:var(--text); outline:none;">
+        </div>
+        <div>
+          <div style="font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); margin-bottom:4px;">Priority</div>
+          <select id="gap-priority" style="font-family:'DM Sans',sans-serif; font-size:12px; padding:8px 10px; border:1px solid var(--border); border-radius:6px; background:var(--surface-raised); color:var(--text-secondary); outline:none; cursor:pointer;">
+            <option value="high">High</option>
+            <option value="medium" selected>Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </div>
+        <button onclick="addGap()" style="font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; padding:8px 16px; border-radius:6px; border:1px solid var(--border); background:var(--text); color:var(--bg); cursor:pointer;">Add</button>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:12px;" id="gaps-list">
+        <div class="gap-item" style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; border-left:3px solid var(--blog); display:flex; align-items:flex-start; justify-content:space-between; gap:16px;">
+          <div style="flex:1;">
+            <div style="font-weight:600; margin-bottom:4px;">Zero partner & investor content</div>
+            <div style="font-size:13px; color:var(--text-secondary);">Website has partner page and investor messaging, but blog has nothing for this audience. No articles on due diligence, ecosystem support, or portfolio R&D.</div>
           </div>
-          <div class="card-data">
-            <div class="card-data-title">Data Needed</div>
-            <div class="data-item">
-              <div class="data-source from-team">From Team</div>
-              <div class="data-detail">Common client complaints about previous outsourcing, what specifically about orchestration model addresses failures</div>
-            </div>
-            <div class="data-item">
-              <div class="data-source from-web">From Web</div>
-              <div class="data-detail">R&D outsourcing failure rates, common outsourcing complaints, Gartner/industry reports on project failures</div>
-            </div>
+          <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
+            <span class="priority-label priority-label-high">High</span>
+            <span class="comment-delete" onclick="deleteItem(this.closest('.gap-item'))" title="Delete">✕</span>
           </div>
         </div>
-
-        <div class="card" data-type="blog">
-          <div class="card-main">
-            <div class="card-top">
-              <span class="card-channel">Blog 6</span>
-              <span class="card-funnel funnel-mofu">MOFU</span>
-            </div>
-            <div class="card-title">MedTech R&D: A Founder's Guide to Regulatory, Clinical, and IP Challenges</div>
-            <div class="card-desc">Vertical-specific tactical guide. Each challenge maps to needing specialized expertise within a structured framework. Founder reading this sees someone who understands their specific pain.</div>
-            <div class="card-tags">
-              <span class="tag tag-startup">Startups — MedTech</span>
-              <span class="tag tag-cta">CTA → Pathfinder</span>
-            </div>
+        <div class="gap-item" style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; border-left:3px solid var(--blog); display:flex; align-items:flex-start; justify-content:space-between; gap:16px;">
+          <div style="flex:1;">
+            <div style="font-weight:600; margin-bottom:4px;">No comparison or decision-stage content</div>
+            <div style="font-size:13px; color:var(--text-secondary);">No "build vs. buy" frameworks, no fractional vs. full-time comparisons. The highest-converting content type is completely missing.</div>
           </div>
-          <div class="card-data">
-            <div class="card-data-title">Data Needed</div>
-            <div class="data-item">
-              <div class="data-source from-team">From Team</div>
-              <div class="data-detail">Does RP have MedTech experts? Any MedTech projects completed? Which verticals are strongest on platform?</div>
-            </div>
-            <div class="data-item">
-              <div class="data-source from-web">From Web</div>
-              <div class="data-detail">EU MDR regulations, MedTech startup challenges, regulatory timelines, IP requirements for medical devices in Europe</div>
-            </div>
+          <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
+            <span class="priority-label priority-label-high">High</span>
+            <span class="comment-delete" onclick="deleteItem(this.closest('.gap-item'))" title="Delete">✕</span>
           </div>
         </div>
-
-        <div class="card" data-type="newsletter">
-          <div class="card-main">
-            <div class="card-top">
-              <span class="card-channel">Newsletter Ed. 3</span>
-            </div>
-            <div class="card-title">The Slide Missing From Every Pitch Deck</div>
-            <div class="card-desc">Provocation: Investors are asking one question most founders can't answer — "Walk me through your R&D process from problem to delivery." Not your product. Your process. That's the missing slide.</div>
-            <div class="card-tags">
-              <span class="tag tag-startup">Startups + Partners</span>
-              <span class="tag tag-cta">CTA → Pathfinder</span>
-              <span class="tag tag-link">Links to → Blog 4</span>
-            </div>
+        <div class="gap-item" style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; border-left:3px solid var(--blog); display:flex; align-items:flex-start; justify-content:space-between; gap:16px;">
+          <div style="flex:1;">
+            <div style="font-weight:600; margin-bottom:4px;">No DACH or regional content</div>
+            <div style="font-size:13px; color:var(--text-secondary);">Company based in Heilbronn, operates across DACH, but nothing addresses European or German-speaking startup challenges specifically.</div>
           </div>
-          <div class="card-data">
-            <div class="card-data-title">Data Needed</div>
-            <div class="data-item">
-              <div class="data-source from-team">From Team</div>
-              <div class="data-detail">Partner milestone or growth stat for spotlight section</div>
-            </div>
+          <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
+            <span class="priority-label priority-label-medium">Medium</span>
+            <span class="comment-delete" onclick="deleteItem(this.closest('.gap-item'))" title="Delete">✕</span>
           </div>
         </div>
-
+        <div class="gap-item" style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; border-left:3px solid var(--blog); display:flex; align-items:flex-start; justify-content:space-between; gap:16px;">
+          <div style="flex:1;">
+            <div style="font-weight:600; margin-bottom:4px;">Blog hasn't caught up to orchestration positioning</div>
+            <div style="font-size:13px; color:var(--text-secondary);">Older articles still talk about expert matching and freelancing. Brand has evolved to full Tech & BizDev Orchestration but blog content lags behind.</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
+            <span class="priority-label priority-label-medium">Medium</span>
+            <span class="comment-delete" onclick="deleteItem(this.closest('.gap-item'))" title="Delete">✕</span>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- WEEK 4 -->
-    <div class="week">
-      <div class="week-label">Week 4</div>
-      <div class="week-grid">
-
-        <div class="card" data-type="blog">
-          <div class="card-main">
-            <div class="card-top">
-              <span class="card-channel">Blog 7</span>
-              <span class="card-funnel funnel-tofu">TOFU</span>
-            </div>
-            <div class="card-title">Why DACH Startups Struggle to Turn R&D Into Revenue</div>
-            <div class="card-desc">Ecosystem piece with teeth. Not a landscape overview — a diagnosis of why DACH startups with great research can't scale. The gap is execution infrastructure. Connects to Pathfinder and full orchestration as the missing layer.</div>
-            <div class="card-tags">
-              <span class="tag tag-startup">Startups — DACH</span>
-              <span class="tag tag-cta">CTA → Pathfinder</span>
-            </div>
-          </div>
-          <div class="card-data">
-            <div class="card-data-title">Data Needed</div>
-            <div class="data-item">
-              <div class="data-source from-team">From Team</div>
-              <div class="data-detail">Founder's firsthand perspective on DACH ecosystem, what she sees across the network from Heilbronn</div>
-            </div>
-            <div class="data-item">
-              <div class="data-source from-web">From Web</div>
-              <div class="data-detail">DACH ecosystem data (Dealroom, European Startup Monitor), German Startup Assoc. reports, BW funding data</div>
-            </div>
-          </div>
+    <!-- ===== TEAM NOTES VIEW ===== -->
+    <div class="view-section" id="view-notes">
+      <div class="main-header">
+        <div>
+          <h2>Team Notes</h2>
+          <p>Meeting notes, feedback, and reference material from the team.</p>
         </div>
-
-        <div class="card" data-type="blog">
-          <div class="card-main">
-            <div class="card-top">
-              <span class="card-channel">Blog 8</span>
-              <span class="card-funnel funnel-tofu">TOFU</span>
-            </div>
-            <div class="card-title">The Partner's Guide to Adding R&D Support to Your Startup Ecosystem</div>
-            <div class="card-desc">Practical playbook for hubs, accelerators, investors. How to offer structured R&D without building internal teams. Positions RP's partner program as the easy integration path.</div>
-            <div class="card-tags">
-              <span class="tag tag-partner">Partners — Hubs & Accelerators</span>
-              <span class="tag tag-cta">CTA → Partner page</span>
-            </div>
-          </div>
-          <div class="card-data">
-            <div class="card-data-title">Data Needed</div>
-            <div class="data-item">
-              <div class="data-source from-team">From Team</div>
-              <div class="data-detail">Partner model details: commission, referral analytics, what partners get. Any existing partners to reference?</div>
-            </div>
-            <div class="data-item">
-              <div class="data-source from-web">From Web</div>
-              <div class="data-detail">How top accelerators structure support services, European startup hub ecosystem data</div>
-            </div>
-          </div>
+        <div class="header-actions">
+          <button class="btn btn-primary">+ Add Note</button>
         </div>
+      </div>
 
-        <div class="card" data-type="newsletter">
-          <div class="card-main">
-            <div class="card-top">
-              <span class="card-channel">Newsletter Ed. 4</span>
-            </div>
-            <div class="card-title">The Bottleneck You Can't See Is the One Killing Your Launch</div>
-            <div class="card-desc">Provocation: When GTM is slow, founders look downstream — sales, marketing, channels. But 80% of the time the real blocker is upstream: unfinished R&D, missing regulatory step, unvalidated technical claim.</div>
-            <div class="card-tags">
-              <span class="tag tag-startup">Startups</span>
-              <span class="tag tag-cta">CTA → Pathfinder</span>
-              <span class="tag tag-link">Links to → Blog 5</span>
-            </div>
-          </div>
-          <div class="card-data">
-            <div class="card-data-title">Data Needed</div>
-            <div class="data-item">
-              <div class="data-source from-team">From Team</div>
-              <div class="data-detail">DACH or regional stat for spotlight section</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" data-type="youtube">
-          <div class="card-main">
-            <div class="card-top">
-              <span class="card-channel">YouTube Video 2</span>
-              <span class="card-funnel funnel-tofu">TOFU</span>
-            </div>
-            <div class="card-title">3 Things European Startups Get Wrong About R&D (And What to Do Instead)</div>
-            <div class="card-desc">Short, punchy, 3–4 minutes. Three specific mistakes with three specific fixes. Each fix naturally points to structured R&D (scoping before hiring, milestone-based projects, IP protection). European angle differentiates from US-centric startup YouTube. No one owns this niche yet.</div>
-            <div class="card-tags">
-              <span class="tag tag-general">General / European ecosystem</span>
-              <span class="tag tag-cta">CTA → Pathfinder (description)</span>
-            </div>
-          </div>
-          <div class="card-data">
-            <div class="card-data-title">Data Needed</div>
-            <div class="data-item">
-              <div class="data-source from-team">From Team</div>
-              <div class="data-detail">Founder's perspective on common European startup R&D mistakes, regional examples</div>
-            </div>
-            <div class="data-item">
-              <div class="data-source from-web">From Web</div>
-              <div class="data-detail">European startup failure data, DACH R&D spending, comparison with US approaches</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" data-type="media">
-          <div class="card-main">
-            <div class="card-top">
-              <span class="card-channel">Media Article — External</span>
-            </div>
-            <div class="card-title">The Fractional R&D Economy: Why European Startups Are Abandoning the Full-Time R&D Hire</div>
-            <div class="card-desc">Contributed article under founder's name for EU-Startups, Sifted, or Deutsche Startups. Not a product pitch — a thought leadership piece on the fractional R&D trend that naturally references RP as an example. Data-driven, timely, hooks into what these outlets are already covering.</div>
-            <div class="card-tags">
-              <span class="tag tag-general">European ecosystem</span>
-              <span class="tag tag-cta">Target: EU-Startups, Sifted, Deutsche Startups</span>
-            </div>
-          </div>
-          <div class="card-data">
-            <div class="card-data-title">Data Needed</div>
-            <div class="data-item">
-              <div class="data-source from-team">From Team</div>
-              <div class="data-detail">Founder approval to publish under her name, RP platform stats for credibility, any named partnerships</div>
-            </div>
-            <div class="data-item">
-              <div class="data-source from-web">From Web</div>
-              <div class="data-detail">Fractional talent market data, European startup hiring trends, freelance/gig economy reports for R&D specifically</div>
-            </div>
-          </div>
-        </div>
-
+      <div class="empty-state">
+        <div class="empty-icon">¶</div>
+        <h3>No notes yet</h3>
+        <p>Add meeting notes, feedback from Ecem or Tina, and reference material here.</p>
       </div>
     </div>
-  </div>
 
-  <!-- NEWSLETTER ↔ BLOG CONNECTIONS -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-title">Newsletter ↔ Blog Connections</div>
-      <div class="section-badge">Different angle, different format — connected</div>
-    </div>
-    <div class="questions-list">
-      <div class="question">
-        <span class="q-num">W1</span>
-        <span>"You're Probably Solving a Problem That Doesn't Exist" → questions the assumption. Blog 2 gives the budgeting framework.</span>
-      </div>
-      <div class="question">
-        <span class="q-num">W2</span>
-        <span>"Your Best Hire Right Now Might Not Be a Hire" → tells a micro-story. Blog 1 gives the cost comparison.</span>
-      </div>
-      <div class="question">
-        <span class="q-num">W3</span>
-        <span>"The Slide Missing From Every Pitch Deck" → names one specific gap. Blog 4 covers the full investor perspective.</span>
-      </div>
-      <div class="question">
-        <span class="q-num">W4</span>
-        <span>"The Bottleneck You Can't See" → reframes GTM as an R&D problem. Blog 5 explains how to fix broken outsourcing.</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- GUIDING PRINCIPLES -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-title">Guiding Principles</div>
-    </div>
-    <div class="principles-grid">
-      <div class="gp-card">
-        <div class="gp-title">Reader First, Always</div>
-        <div class="gp-text">Every piece starts from the reader's problem. Internal knowledge (orchestration funnel, Pathfinder, services) shapes HOW we write, never WHAT the headline says. The reader arrives at Researchpreneurs on their own.</div>
-      </div>
-      <div class="gp-card">
-        <div class="gp-title">Every Piece Connects to a Real Service</div>
-        <div class="gp-text">No vanity content. Every blog, newsletter, and video connects to something Researchpreneurs actually offers — Pathfinder, fractional experts, full orchestration, partner program. If it doesn't connect, it doesn't get made.</div>
-      </div>
-      <div class="gp-card">
-        <div class="gp-title">Channels Differentiate, Not Duplicate</div>
-        <div class="gp-text">Blog educates (the answer). Newsletter provokes (the itch). YouTube demonstrates (the proof). A reader could follow all three and never feel like they're getting the same thing twice.</div>
-      </div>
-      <div class="gp-card">
-        <div class="gp-title">Balanced Funnel, Not Just Education</div>
-        <div class="gp-text">3 BOFU articles that convert. 3 MOFU articles that educate. 2 TOFU articles that attract. The blog isn't just for awareness — it's a conversion engine with content at every stage of the buying decision.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- KEY QUESTIONS FOR ONBOARDING -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-title">Key Questions for Monday</div>
-      <div class="section-badge">To unlock the best content</div>
-    </div>
-    <div class="questions-list">
-      <div class="question">
-        <span class="q-num">1</span>
-        <span>Can I get a Pathfinder walkthrough this week? I need to understand inputs, outputs, and the result format to write content around it.</span>
-      </div>
-      <div class="question">
-        <span class="q-num">2</span>
-        <span>Do you have data on average project costs, timelines, or client savings I can reference in content? Even ballpark ranges help.</span>
-      </div>
-      <div class="question">
-        <span class="q-num">3</span>
-        <span>What are the most common frustrations clients mention about previous R&D outsourcing experiences before finding RP?</span>
-      </div>
-      <div class="question">
-        <span class="q-num">4</span>
-        <span>Which industry verticals have the most projects on the platform — MedTech, cleantech, agrifood? This determines which vertical blog I write.</span>
-      </div>
-      <div class="question">
-        <span class="q-num">5</span>
-        <span>Can you walk me through the partner model — how it works, what partners receive, and whether there are partners I can reference?</span>
-      </div>
-      <div class="question">
-        <span class="q-num">6</span>
-        <span>Would the team be open to a contributed article for an external publication like EU-Startups or Sifted under the founder's name?</span>
-      </div>
-      <div class="question">
-        <span class="q-num">7</span>
-        <span>What's the review/approval process for content? Quick turnaround matters for a 2-per-week blog cadence.</span>
-      </div>
-      <div class="question">
-        <span class="q-num">8</span>
-        <span>Should all content drive to Pathfinder as the primary CTA, or do we vary by audience and content type?</span>
-      </div>
-    </div>
-  </div>
-
+  </main>
 </div>
+
+<script>
+  function switchView(view) {
+    document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+    document.getElementById('view-' + view).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+  }
+
+  function addComment(id) {
+    const input = document.getElementById('input-' + id);
+    const author = document.getElementById('author-' + id);
+    const text = input.value.trim();
+    if (!text) return;
+
+    const commentsArea = document.getElementById('comments-' + id);
+    const addRow = commentsArea.querySelector('.add-comment-row');
+
+    const comment = document.createElement('div');
+    comment.className = 'comment';
+
+    const now = new Date();
+    const time = now.toLocaleDateString('en-GB', { day:'numeric', month:'short' }) + ', ' + now.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
+
+    comment.innerHTML = `
+      <span class="comment-author">${author.value}</span>
+      <span class="comment-text">${text}</span>
+      <span class="comment-time">${time}</span>
+      <span class="comment-delete" onclick="deleteItem(this.parentElement)" title="Delete">✕</span>
+    `;
+
+    commentsArea.insertBefore(comment, addRow);
+    input.value = '';
+    input.focus();
+  }
+
+  function deleteItem(el) {
+    el.style.opacity = '0';
+    el.style.transition = 'opacity 0.15s ease';
+    setTimeout(() => el.remove(), 150);
+  }
+
+  function addGap() {
+    const title = document.getElementById('gap-title').value.trim();
+    const desc = document.getElementById('gap-desc').value.trim();
+    const priority = document.getElementById('gap-priority').value;
+    if (!title) return;
+
+    const list = document.getElementById('gaps-list');
+    const item = document.createElement('div');
+    item.className = 'gap-item';
+    item.style.cssText = 'background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; border-left:3px solid var(--blog); display:flex; align-items:flex-start; justify-content:space-between; gap:16px;';
+
+    const labelClass = 'priority-label-' + priority;
+    const labelText = priority.charAt(0).toUpperCase() + priority.slice(1);
+
+    item.innerHTML = `
+      <div style="flex:1;">
+        <div style="font-weight:600; margin-bottom:4px;">${title}</div>
+        ${desc ? `<div style="font-size:13px; color:var(--text-secondary);">${desc}</div>` : ''}
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
+        <span class="priority-label ${labelClass}">${labelText}</span>
+        <span class="comment-delete" onclick="deleteItem(this.closest('.gap-item'))" title="Delete">✕</span>
+      </div>
+    `;
+
+    list.appendChild(item);
+    document.getElementById('gap-title').value = '';
+    document.getElementById('gap-desc').value = '';
+    document.getElementById('gap-form').style.display = 'none';
+  }
+</script>
+
 </body>
 </html>
