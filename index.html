@@ -6,1399 +6,300 @@
 <title>RESEARCHPRENEURS — Content Operations</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #f6f5f3;
-    --surface: #ffffff;
-    --surface-raised: #fafaf9;
-    --surface-hover: #f0efed;
-    --border: #e4e2de;
-    --border-light: #eceae6;
-    --text: #1a1815;
-    --text-secondary: #6b6560;
-    --text-muted: #9b958e;
-    --accent: #1a1815;
-    --accent-dim: #1a181508;
-    --accent-mid: #1a181518;
-
-    --blog: #2563eb;
-    --blog-dim: #2563eb0d;
-    --newsletter: #c2780a;
-    --newsletter-dim: #c2780a0d;
-    --youtube: #dc2626;
-    --youtube-dim: #dc26260d;
-    --media: #0d7c4a;
-    --media-dim: #0d7c4a0d;
-    --email: #7c3aed;
-    --email-dim: #7c3aed0d;
-
-    --status-draft: #c2780a;
-    --status-review: #2563eb;
-    --status-published: #0d7c4a;
-    --status-idea: #9b958e;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 400;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    min-height: 100vh;
-  }
-
-  /* ---- LAYOUT ---- */
-  .app {
-    display: grid;
-    grid-template-columns: 240px 1fr;
-    min-height: 100vh;
-  }
-
-  /* ---- SIDEBAR ---- */
-  .sidebar {
-    background: var(--surface);
-    border-right: 1px solid var(--border);
-    padding: 32px 0;
-    display: flex;
-    flex-direction: column;
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-  }
-
-  .sidebar-brand {
-    padding: 0 24px;
-    margin-bottom: 40px;
-  }
-
-  .sidebar-brand h1 {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--text);
-    margin-bottom: 4px;
-  }
-
-  .sidebar-brand span {
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-
-  .sidebar-nav {
-    flex: 1;
-  }
-
-  .nav-section-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    padding: 0 24px;
-    margin-bottom: 8px;
-    margin-top: 24px;
-  }
-
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 24px;
-    font-size: 13px;
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all 0.15s ease;
-    border-left: 2px solid transparent;
-  }
-
-  .nav-item:hover {
-    background: var(--surface-hover);
-    color: var(--text);
-  }
-
-  .nav-item.active {
-    color: var(--text);
-    border-left-color: var(--text);
-    background: var(--accent-dim);
-  }
-
-  .nav-icon {
-    width: 16px;
-    font-size: 14px;
-    text-align: center;
-    flex-shrink: 0;
-  }
-
-  .nav-count {
-    margin-left: auto;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--text-muted);
-    background: var(--surface-hover);
-    padding: 1px 6px;
-    border-radius: 3px;
-  }
-
-  .sidebar-footer {
-    padding: 16px 24px;
-    border-top: 1px solid var(--border);
-    font-size: 11px;
-    color: var(--text-muted);
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .sidebar-footer .status-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--status-published);
-    display: inline-block;
-    margin-right: 6px;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
-  /* ---- MAIN CONTENT ---- */
-  .main {
-    padding: 40px 48px 80px;
-    overflow-y: auto;
-  }
-
-  .main-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 48px;
-  }
-
-  .main-header h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 32px;
-    font-weight: 400;
-    line-height: 1.2;
-    margin-bottom: 6px;
-  }
-
-  .main-header p {
-    font-size: 14px;
-    color: var(--text-secondary);
-    max-width: 480px;
-  }
-
-  .header-actions {
-    display: flex;
-    gap: 8px;
-  }
-
-  .btn {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 9px 18px;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-    background: var(--surface-raised);
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all 0.15s ease;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .btn:hover {
-    background: var(--surface-hover);
-    color: var(--text);
-    border-color: var(--text-muted);
-  }
-
-  .btn-primary {
-    background: var(--text);
-    color: var(--bg);
-    border-color: var(--text);
-  }
-
-  .btn-primary:hover {
-    background: #333;
-    color: var(--bg);
-    border-color: #333;
-  }
-
-  /* ---- STATS ROW ---- */
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-bottom: 48px;
-  }
-
-  .stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .stat-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-  }
-
-  .stat-card[data-channel="blog"]::before { background: var(--blog); }
-  .stat-card[data-channel="newsletter"]::before { background: var(--newsletter); }
-  .stat-card[data-channel="youtube"]::before { background: var(--youtube); }
-  .stat-card[data-channel="media"]::before { background: var(--media); }
-  .stat-card[data-channel="email"]::before { background: var(--email); }
-
-  .stat-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-  }
-
-  .stat-number {
-    font-family: 'DM Serif Display', serif;
-    font-size: 36px;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-
-  .stat-card[data-channel="blog"] .stat-number { color: var(--blog); }
-  .stat-card[data-channel="newsletter"] .stat-number { color: var(--newsletter); }
-  .stat-card[data-channel="youtube"] .stat-number { color: var(--youtube); }
-  .stat-card[data-channel="media"] .stat-number { color: var(--media); }
-  .stat-card[data-channel="email"] .stat-number { color: var(--email); }
-
-  .stat-sub {
-    font-size: 11px;
-    color: var(--text-muted);
-  }
-
-  /* ---- SECTION ---- */
-  .section {
-    margin-bottom: 48px;
-  }
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .section-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 20px;
-    font-weight: 400;
-  }
-
-  .section-badge {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--text-muted);
-    letter-spacing: 1px;
-  }
-
-  /* ---- PIPELINE TABLE ---- */
-  .pipeline {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .pipeline thead th {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    text-align: left;
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .pipeline tbody tr {
-    border-bottom: 1px solid var(--border-light);
-    transition: background 0.1s ease;
-    cursor: pointer;
-  }
-
-  .pipeline tbody tr:hover {
-    background: var(--surface-raised);
-  }
-
-  .pipeline td {
-    padding: 16px;
-    font-size: 13px;
-    vertical-align: middle;
-  }
-
-  .pipeline-title {
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 2px;
-  }
-
-  .pipeline-desc {
-    font-size: 11px;
-    color: var(--text-muted);
-  }
-
-  .channel-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 4px;
-    display: inline-block;
-  }
-
-  .channel-blog { background: var(--blog-dim); color: var(--blog); }
-  .channel-newsletter { background: var(--newsletter-dim); color: var(--newsletter); }
-  .channel-youtube { background: var(--youtube-dim); color: var(--youtube); }
-  .channel-media { background: var(--media-dim); color: var(--media); }
-  .channel-email { background: var(--email-dim); color: var(--email); }
-
-  .status-tag {
-    font-size: 11px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .status-tag::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .status-idea { color: var(--status-idea); }
-  .status-idea::before { background: var(--status-idea); }
-  .status-draft { color: var(--status-draft); }
-  .status-draft::before { background: var(--status-draft); }
-  .status-review { color: var(--status-review); }
-  .status-review::before { background: var(--status-review); }
-  .status-published { color: var(--status-published); }
-  .status-published::before { background: var(--status-published); }
-
-  .audience-tag {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    padding: 2px 8px;
-    border-radius: 3px;
-    background: var(--surface-hover);
-    color: var(--text-secondary);
-  }
-
-  .priority-bar {
-    width: 40px;
-    height: 4px;
-    border-radius: 2px;
-    background: var(--border);
-  }
-
-  .priority-high {
-    background: linear-gradient(90deg, var(--accent), var(--accent-mid));
-  }
-
-  .priority-med {
-    background: linear-gradient(90deg, var(--newsletter), var(--newsletter-dim));
-    width: 26px;
-  }
-
-  .priority-low {
-    background: var(--text-muted);
-    width: 14px;
-  }
-
-  /* ---- IDEAS BOARD ---- */
-  .ideas-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
-
-  .idea-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    position: relative;
-  }
-
-  .idea-card:hover {
-    border-color: var(--text-muted);
-    background: var(--surface-raised);
-  }
-
-  .idea-card.add-new {
-    border-style: dashed;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 140px;
-    color: var(--text-muted);
-    gap: 8px;
-  }
-
-  .idea-card.add-new:hover {
-    border-color: var(--text);
-    color: var(--text);
-  }
-
-  .idea-card.add-new .plus {
-    font-size: 24px;
-    line-height: 1;
-  }
-
-  .idea-card.add-new span {
-    font-size: 12px;
-    font-weight: 500;
-  }
-
-  .idea-channel {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .idea-title {
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 6px;
-    line-height: 1.4;
-  }
-
-  .idea-note {
-    font-size: 12px;
-    color: var(--text-muted);
-    line-height: 1.5;
-  }
-
-  .idea-meta {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 12px;
-    padding-top: 10px;
-    border-top: 1px solid var(--border-light);
-    font-size: 10px;
-    color: var(--text-muted);
-  }
-
-  /* ---- CHANNEL STRATEGY ---- */
-  .channel-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
-
-  .channel-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 24px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .channel-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-  }
-
-  .channel-card[data-ch="blog"]::before { background: var(--blog); }
-  .channel-card[data-ch="newsletter"]::before { background: var(--newsletter); }
-  .channel-card[data-ch="youtube"]::before { background: var(--youtube); }
-
-  .channel-card-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-
-  .channel-card[data-ch="blog"] .channel-card-label { color: var(--blog); }
-  .channel-card[data-ch="newsletter"] .channel-card-label { color: var(--newsletter); }
-  .channel-card[data-ch="youtube"] .channel-card-label { color: var(--youtube); }
-
-  .channel-card-role {
-    font-family: 'DM Serif Display', serif;
-    font-size: 20px;
-    margin-bottom: 8px;
-  }
-
-  .channel-card-desc {
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 16px;
-  }
-
-  .channel-card-meta {
-    font-size: 11px;
-    color: var(--text-muted);
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    padding-top: 12px;
-    border-top: 1px solid var(--border-light);
-  }
-
-  .channel-card-meta strong {
-    color: var(--text-secondary);
-  }
-
-  /* ---- EMPTY STATE ---- */
-  .empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--text-muted);
-  }
-
-  .empty-state .empty-icon {
-    font-size: 32px;
-    margin-bottom: 12px;
-    opacity: 0.4;
-  }
-
-  .empty-state h3 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 18px;
-    color: var(--text-secondary);
-    margin-bottom: 6px;
-    font-weight: 400;
-  }
-
-  .empty-state p {
-    font-size: 13px;
-    max-width: 360px;
-    margin: 0 auto;
-  }
-
-  /* ---- RESPONSIVE ---- */
-  @media (max-width: 1024px) {
-    .app { grid-template-columns: 1fr; }
-    .sidebar { display: none; }
-    .stats-row { grid-template-columns: repeat(3, 1fr); }
-    .ideas-grid { grid-template-columns: repeat(2, 1fr); }
-    .channel-grid { grid-template-columns: 1fr; }
-    .main { padding: 24px; }
-  }
-
-  /* ---- SCROLLBAR ---- */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
-
-  /* ---- TABS ---- */
-  .tabs {
-    display: flex;
-    gap: 0;
-    margin-bottom: 24px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .tab {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-muted);
-    padding: 10px 20px;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: all 0.15s ease;
-    margin-bottom: -1px;
-  }
-
-  .tab:hover { color: var(--text-secondary); }
-
-  .tab.active {
-    color: var(--text);
-    border-bottom-color: var(--text);
-  }
-
-  /* ---- VIEW SECTIONS ---- */
-  .view-section { display: none; }
-  .view-section.active { display: block; }
-
-  /* ---- CONTENT CARDS WITH COMMENTS ---- */
-  .content-item {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    border-left: 3px solid var(--blog);
-    overflow: hidden;
-  }
-
-  .content-item[data-ch="youtube"] { border-left-color: var(--youtube); }
-  .content-item[data-ch="newsletter"] { border-left-color: var(--newsletter); }
-
-  .content-item-body {
-    padding: 20px 24px;
-  }
-
-  .content-item-tag-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 6px;
-  }
-
-  .content-item-topic {
-    font-size: 11px;
-    color: var(--text-muted);
-  }
-
-  .content-item-title {
-    font-weight: 500;
-    font-size: 15px;
-    margin-bottom: 4px;
-  }
-
-  .content-item-desc {
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-  }
-
-  /* Comment area */
-  .comments-area {
-    border-top: 1px solid var(--border-light);
-    padding: 0 24px;
-  }
-
-  .comment {
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border-light);
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    font-size: 13px;
-  }
-
-  .comment:last-of-type {
-    border-bottom: none;
-  }
-
-  .comment-author {
-    font-weight: 600;
-    font-size: 11px;
-    color: var(--text);
-    background: var(--surface-hover);
-    padding: 2px 8px;
-    border-radius: 3px;
-    flex-shrink: 0;
-    letter-spacing: 0.3px;
-  }
-
-  .comment-text {
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
-
-  .comment-time {
-    font-size: 10px;
-    color: var(--text-muted);
-    margin-left: auto;
-    flex-shrink: 0;
-  }
-
-  .add-comment-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 0;
-  }
-
-  .add-comment-row input {
-    flex: 1;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    padding: 7px 12px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: var(--surface-raised);
-    color: var(--text);
-    outline: none;
-    transition: border-color 0.15s ease;
-  }
-
-  .add-comment-row input:focus {
-    border-color: var(--text-muted);
-  }
-
-  .add-comment-row input::placeholder {
-    color: var(--text-muted);
-  }
-
-  .add-comment-row select {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    padding: 7px 10px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: var(--surface-raised);
-    color: var(--text-secondary);
-    outline: none;
-    cursor: pointer;
-  }
-
-  .add-comment-row button {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 7px 14px;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-    background: var(--text);
-    color: var(--bg);
-    cursor: pointer;
-    transition: background 0.15s ease;
-  }
-
-  .add-comment-row button:hover {
-    background: #333;
-  }
-
-  .comment-delete {
-    font-size: 11px;
-    color: var(--text-muted);
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.15s ease;
-    flex-shrink: 0;
-    padding: 0 4px;
-  }
-
-  .comment:hover .comment-delete {
-    opacity: 1;
-  }
-
-  .comment-delete:hover {
-    color: var(--youtube);
-  }
-
-  .priority-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    padding: 3px 10px;
-    border-radius: 4px;
-  }
-
-  .priority-label-high {
-    background: #dc26260d;
-    color: var(--youtube);
-  }
-
-  .priority-label-medium {
-    background: #c2780a0d;
-    color: var(--newsletter);
-  }
-
-  .priority-label-low {
-    background: var(--surface-hover);
-    color: var(--text-muted);
-  }
-
-  /* Action buttons on content items */
-  .content-item-actions {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 24px 12px;
-  }
-
-  .action-btn {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    padding: 5px 12px;
-    border-radius: 5px;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: all 0.15s ease;
-  }
-
-  .action-btn:hover {
-    border-color: var(--text-muted);
-    color: var(--text-secondary);
-  }
-
-  .action-btn-complete {
-    color: #0d7c4a;
-    border-color: #0d7c4a33;
-  }
-
-  .action-btn-complete:hover {
-    background: #0d7c4a0d;
-    border-color: #0d7c4a;
-    color: #0d7c4a;
-  }
-
-  .action-btn-delete:hover {
-    background: #dc26260d;
-    border-color: var(--youtube);
-    color: var(--youtube);
-  }
-
-  /* Pipeline completed list */
-  .completed-item {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-  }
-
-  .completed-item-title {
-    font-weight: 500;
-    font-size: 14px;
-  }
-
-  .completed-item-meta {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
-
-  .completed-badge {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    padding: 3px 10px;
-    border-radius: 4px;
-    background: #0d7c4a0d;
-    color: #0d7c4a;
-    flex-shrink: 0;
-  }
-
-  /* Ideas list */
-  .idea-item {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px 20px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 16px;
-  }
-
-  .idea-item-title {
-    font-weight: 500;
-    font-size: 14px;
-    margin-bottom: 2px;
-  }
-
-  .idea-item-desc {
-    font-size: 12px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
-
-  .idea-item-author {
-    font-size: 10px;
-    color: var(--text-muted);
-    margin-top: 6px;
-  }
+:root{--bg:#f6f5f3;--sf:#fff;--sfr:#fafaf9;--sfh:#f0efed;--bd:#e4e2de;--bdl:#eceae6;--tx:#1a1815;--ts:#6b6560;--tm:#9b958e;--bl:#2563eb;--nl:#c2780a;--yt:#dc2626;--md:#0d7c4a;--em:#7c3aed}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+/* Sidebar */
+.sb{background:var(--sf);border-right:1px solid var(--bd);padding:32px 0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
+.sb-brand{padding:0 24px;margin-bottom:40px}
+.sb-brand h1{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--tx);margin-bottom:4px}
+.sb-brand span{font-size:12px;color:var(--tm)}
+.nav-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--tm);padding:0 24px;margin:24px 0 8px}
+.nav-i{display:flex;align-items:center;gap:10px;padding:10px 24px;font-size:13px;color:var(--ts);cursor:pointer;transition:all .15s;border-left:2px solid transparent}
+.nav-i:hover{background:var(--sfh);color:var(--tx)}
+.nav-i.on{color:var(--tx);border-left-color:var(--tx);background:#1a181508}
+.nav-ic{width:16px;font-size:14px;text-align:center;flex-shrink:0}
+.sb-ft{padding:16px 24px;border-top:1px solid var(--bd);font-size:11px;color:var(--tm);display:flex;flex-direction:column;gap:4px}
+.sb-ft .dot{width:6px;height:6px;border-radius:50%;background:var(--md);display:inline-block;margin-right:6px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+/* Main */
+.mn{padding:40px 48px 80px;overflow-y:auto}
+.mh{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:48px}
+.mh h2{font-family:'DM Serif Display',serif;font-size:32px;font-weight:400;line-height:1.2;margin-bottom:6px}
+.mh p{font-size:14px;color:var(--ts);max-width:480px}
+.ha{display:flex;gap:8px}
+.btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;padding:9px 18px;border-radius:6px;border:1px solid var(--bd);background:var(--sfr);color:var(--ts);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px}
+.btn:hover{background:var(--sfh);color:var(--tx);border-color:var(--tm)}
+.btn-p{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.btn-p:hover{background:#333;color:var(--bg);border-color:#333}
+/* Section */
+.sec{margin-bottom:48px}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--bd)}
+.st{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400}
+/* Channel grid */
+.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.cc{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:24px;position:relative;overflow:hidden}
+.cc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.cc[data-ch=blog]::before{background:var(--bl)}
+.cc[data-ch=youtube]::before{background:var(--yt)}
+.cc[data-ch=newsletter]::before{background:var(--nl)}
+.cc-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.cc[data-ch=blog] .cc-lbl{color:var(--bl)}
+.cc[data-ch=youtube] .cc-lbl{color:var(--yt)}
+.cc[data-ch=newsletter] .cc-lbl{color:var(--nl)}
+.cc-role{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:8px}
+.cc-desc{font-size:13px;color:var(--ts);line-height:1.6}
+/* Content item */
+.ci{background:var(--sf);border:1px solid var(--bd);border-radius:10px;border-left:3px solid var(--bl);overflow:hidden}
+.ci[data-ch=youtube]{border-left-color:var(--yt)}
+.ci[data-ch=newsletter]{border-left-color:var(--nl)}
+.ci-body{padding:20px 24px}
+.ci-tags{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.ci-topic{font-size:11px;color:var(--tm)}
+.ci-title{font-weight:500;font-size:15px;margin-bottom:4px}
+.ci-desc{font-size:13px;color:var(--ts);line-height:1.6}
+.ch-tag{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;padding:3px 8px;border-radius:4px;display:inline-block}
+.ch-blog{background:#2563eb0d;color:var(--bl)}
+.ch-youtube{background:#dc26260d;color:var(--yt)}
+.ch-newsletter{background:#c2780a0d;color:var(--nl)}
+/* Comments */
+.cma{border-top:1px solid var(--bdl);padding:0 24px}
+.cm{padding:10px 0;border-bottom:1px solid var(--bdl);display:flex;gap:10px;align-items:flex-start;font-size:13px}
+.cm:last-of-type{border-bottom:none}
+.cm-auth{font-weight:600;font-size:11px;color:var(--tx);background:var(--sfh);padding:2px 8px;border-radius:3px;flex-shrink:0}
+.cm-txt{color:var(--ts);line-height:1.5}
+.cm-time{font-size:10px;color:var(--tm);margin-left:auto;flex-shrink:0}
+.cm-del{font-size:11px;color:var(--tm);cursor:pointer;opacity:0;transition:opacity .15s;flex-shrink:0;padding:0 4px}
+.cm:hover .cm-del{opacity:1}
+.cm-del:hover{color:var(--yt)}
+/* Add comment row */
+.acr{display:flex;align-items:center;gap:8px;padding:10px 0}
+.acr input{flex:1;font-family:'DM Sans',sans-serif;font-size:12px;padding:7px 12px;border:1px solid var(--bd);border-radius:6px;background:var(--sfr);color:var(--tx);outline:none;transition:border-color .15s}
+.acr input:focus{border-color:var(--tm)}
+.acr input::placeholder{color:var(--tm)}
+.acr select,.fm select{font-family:'DM Sans',sans-serif;font-size:11px;padding:7px 10px;border:1px solid var(--bd);border-radius:6px;background:var(--sfr);color:var(--ts);outline:none;cursor:pointer}
+.acr button,.fm button{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;padding:7px 14px;border-radius:6px;border:1px solid var(--bd);background:var(--tx);color:var(--bg);cursor:pointer;transition:background .15s}
+.acr button:hover,.fm button:hover{background:#333}
+/* Actions */
+.ci-acts{display:flex;align-items:center;gap:6px;padding:8px 24px 12px}
+.ab{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;padding:5px 12px;border-radius:5px;border:1px solid var(--bd);background:var(--sf);color:var(--tm);cursor:pointer;transition:all .15s}
+.ab:hover{border-color:var(--tm);color:var(--ts)}
+.ab-c{color:var(--md);border-color:#0d7c4a33}
+.ab-c:hover{background:#0d7c4a0d;border-color:var(--md);color:var(--md)}
+.ab-d:hover{background:#dc26260d;border-color:var(--yt);color:var(--yt)}
+/* Priority */
+.pl{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;padding:3px 10px;border-radius:4px}
+.pl-h{background:#dc26260d;color:var(--yt)}
+.pl-m{background:#c2780a0d;color:var(--nl)}
+.pl-l{background:var(--sfh);color:var(--tm)}
+/* Completed */
+.cpi{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.cpi-title{font-weight:500;font-size:14px}
+.cpi-meta{font-size:11px;color:var(--tm);margin-top:2px}
+.cp-badge{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;padding:3px 10px;border-radius:4px;background:#0d7c4a0d;color:var(--md);flex-shrink:0}
+/* Gap item */
+.gi{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:20px 24px;border-left:3px solid var(--bl);display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+/* Idea / Note item */
+.ii{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:16px 20px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.ii-title{font-weight:500;font-size:14px;margin-bottom:2px}
+.ii-desc{font-size:12px;color:var(--ts);line-height:1.5}
+.ii-auth{font-size:10px;color:var(--tm);margin-top:6px}
+/* Forms */
+.fm{display:none;gap:8px;margin-bottom:16px;background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:16px 20px;flex-wrap:wrap;align-items:flex-end}
+.fm-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--tm);margin-bottom:4px}
+.fm input{width:100%;font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 12px;border:1px solid var(--bd);border-radius:6px;background:var(--sfr);color:var(--tx);outline:none}
+.fm select{font-size:12px;padding:8px 10px}
+/* Delete icon (reusable) */
+.del{font-size:11px;color:var(--tm);cursor:pointer;opacity:.5;transition:opacity .15s;flex-shrink:0;padding:0 4px}
+.del:hover{opacity:1;color:var(--yt)}
+/* Empty state */
+.es{text-align:center;padding:60px 20px;color:var(--tm)}
+.es h3{font-family:'DM Serif Display',serif;font-size:18px;color:var(--ts);margin-bottom:6px;font-weight:400}
+.es p{font-size:13px;max-width:360px;margin:0 auto}
+.es-ic{font-size:32px;margin-bottom:12px;opacity:.4}
+/* Views */
+.vw{display:none}
+.vw.on{display:block}
+/* Responsive */
+@media(max-width:1024px){.app{grid-template-columns:1fr}.sb{display:none}.cg{grid-template-columns:1fr}.mn{padding:24px}}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px}
 </style>
 </head>
 <body>
-
 <div class="app">
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sidebar-brand">
-      <h1>Researchpreneurs</h1>
-      <span>Content Operations</span>
+<aside class="sb">
+  <div class="sb-brand"><h1>Researchpreneurs</h1><span>Content Operations</span></div>
+  <nav style="flex:1">
+    <div class="nav-lbl">Overview</div>
+    <div class="nav-i on" onclick="sw('dashboard',this)"><span class="nav-ic">◻</span>Dashboard</div>
+    <div class="nav-i" onclick="sw('completed',this)"><span class="nav-ic">✓</span>Completed</div>
+    <div class="nav-i" onclick="sw('ideas',this)"><span class="nav-ic">✦</span>Ideas</div>
+    <div class="nav-lbl">Resources</div>
+    <div class="nav-i" onclick="sw('gaps',this)"><span class="nav-ic">△</span>Content Gaps</div>
+    <div class="nav-i" onclick="sw('notes',this)"><span class="nav-ic">¶</span>Team Notes</div>
+  </nav>
+  <div class="sb-ft"><span><span class="dot"></span>Last updated: Mar 7, 2026</span><span>v1.0 — Internal use only</span></div>
+</aside>
+
+<main class="mn">
+
+<!-- DASHBOARD -->
+<div class="vw on" id="v-dashboard">
+  <div class="mh"><div><h2>RESEARCHPRENEURS Content Operations</h2><p>Internal content hub. Track pipeline, collect ideas, and coordinate across channels.</p></div></div>
+
+  <div class="sec">
+    <div class="sh"><div class="st">Channel Roles</div></div>
+    <div class="cg">
+      <div class="cc" data-ch="blog"><div class="cc-lbl">Blog</div><div class="cc-role">The Answer</div><div class="cc-desc">Research-backed frameworks, industry deep dives, and practical guides. Three types: conversion articles for solution-seekers, education pieces on specific industry challenges, and attraction content positioning RESEARCHPRENEURS in the European R&D ecosystem. Every article connects to a real service.</div></div>
+      <div class="cc" data-ch="youtube"><div class="cc-lbl">YouTube</div><div class="cc-role">The Demonstration</div><div class="cc-desc">Shows what text can't. Pathfinder in action solving real bottlenecks, platform walkthroughs demonstrating full orchestration, and RESEARCHPRENEURS R&D concepts and services visualized. AI-produced video where script quality is the differentiator.</div></div>
+      <div class="cc" data-ch="newsletter"><div class="cc-lbl">Newsletter</div><div class="cc-role">The Signal</div><div class="cc-desc">Insider patterns from the RESEARCHPRENEURS network — what the team sees across 850+ experts that no one else can report on. One sharp observation per edition. Short, opinionated, drives to the blog for depth. Reviving "Innovate with Experts" on LinkedIn (3,386 dormant subscribers).</div></div>
     </div>
+  </div>
 
-    <nav class="sidebar-nav">
-      <div class="nav-section-label">Overview</div>
-      <div class="nav-item active" onclick="switchView('dashboard')">
-        <span class="nav-icon">◻</span>
-        Dashboard
-      </div>
-      <div class="nav-item" onclick="switchView('pipeline')">
-        <span class="nav-icon">✓</span>
-        Completed
-      </div>
-      <div class="nav-item" onclick="switchView('ideas')">
-        <span class="nav-icon">✦</span>
-        Ideas
-      </div>
-
-      <div class="nav-section-label">Resources</div>
-      <div class="nav-item" onclick="switchView('gaps')">
-        <span class="nav-icon">△</span>
-        Content Gaps
-      </div>
-      <div class="nav-item" onclick="switchView('notes')">
-        <span class="nav-icon">¶</span>
-        Team Notes
-      </div>
-    </nav>
-
-    <div class="sidebar-footer">
-      <span><span class="status-dot"></span>Last updated: Mar 7, 2026</span>
-      <span>v1.0 — Internal use only</span>
+  <div class="sec">
+    <div class="sh"><div class="st">Coming Up</div><div style="margin-left:auto"><button class="btn btn-p" onclick="toggle('cu-fm')">+ Add Content</button></div></div>
+    <div class="fm" id="cu-fm">
+      <div><div class="fm-lbl">Channel</div><select id="cu-ch"><option value="blog">Blog</option><option value="youtube">YouTube</option><option value="newsletter">Newsletter</option></select></div>
+      <div><div class="fm-lbl">Audience</div><select id="cu-cat"><option>Startups & SMEs</option><option>Corporates</option><option>Partners — Startup Hubs</option><option>Partners — Investors</option><option>Partners — Complementary</option><option>Experts</option><option>Ecosystem / General</option></select></div>
+      <div style="flex:1;min-width:180px"><div class="fm-lbl">Title</div><input id="cu-ti" placeholder="Content title"></div>
+      <div style="flex:2;min-width:200px"><div class="fm-lbl">Description</div><input id="cu-de" placeholder="Short description..."></div>
+      <button onclick="addCU()">Add</button>
     </div>
-  </aside>
-
-  <!-- MAIN -->
-  <main class="main">
-
-    <!-- ===== DASHBOARD VIEW ===== -->
-    <div class="view-section active" id="view-dashboard">
-      <div class="main-header">
-        <div>
-          <h2>RESEARCHPRENEURS Content Operations</h2>
-          <p>Internal content hub. Track pipeline, collect ideas, and coordinate across channels.</p>
-        </div>
+    <div id="cu-list" style="display:flex;flex-direction:column;gap:10px">
+      <div class="ci" data-ch="blog">
+        <div class="ci-body"><div class="ci-tags"><span class="ch-tag ch-blog">Blog</span><span class="ci-topic">Partners — Startup Hubs</span></div><div class="ci-title">Article 1 — Startup Hubs & Accelerators</div><div class="ci-desc">The gap between what accelerators offer (mentorship, funding, pitch training) and what startups actually need when they hit R&D execution bottlenecks. Positions R&D orchestration as the missing support layer for ecosystem operators.</div></div>
+        <div class="cma" id="cma-1"><div class="acr"><select id="au-1"><option>Tina</option><option>Ecem</option><option>Shams</option><option>Mehmet</option><option>Sefer</option></select><input id="in-1" placeholder="Add a comment..." onkeydown="if(event.key==='Enter')postCm('1')"><button onclick="postCm('1')">Post</button></div></div>
+        <div class="ci-acts"><button class="ab ab-c" onclick="complete(this.closest('.ci'))">✓ Complete</button><button class="ab ab-d" onclick="del(this.closest('.ci'))">Delete</button></div>
       </div>
-
-      <!-- Channel Roles — top of page -->
-      <div class="section">
-        <div class="section-header">
-          <div class="section-title">Channel Roles</div>
-        </div>
-        <div class="channel-grid">
-          <div class="channel-card" data-ch="blog">
-            <div class="channel-card-label">Blog</div>
-            <div class="channel-card-role">The Answer</div>
-            <div class="channel-card-desc">Research-backed frameworks, industry deep dives, and practical guides. Three types: conversion articles for solution-seekers, education pieces on specific industry challenges, and attraction content positioning RESEARCHPRENEURS in the European R&D ecosystem. Every article connects to a real service.</div>
-          </div>
-          <div class="channel-card" data-ch="youtube">
-            <div class="channel-card-label">YouTube</div>
-            <div class="channel-card-role">The Demonstration</div>
-            <div class="channel-card-desc">Shows what text can't. Pathfinder in action solving real bottlenecks, platform walkthroughs demonstrating full orchestration, and RESEARCHPRENEURS R&D concepts and services visualized. AI-produced video where script quality is the differentiator.</div>
-          </div>
-          <div class="channel-card" data-ch="newsletter">
-            <div class="channel-card-label">Newsletter</div>
-            <div class="channel-card-role">The Signal</div>
-            <div class="channel-card-desc">Insider patterns from the RESEARCHPRENEURS network — what the team sees across 850+ experts that no one else can report on. One sharp observation per edition. Short, opinionated, drives to the blog for depth. Reviving "Innovate with Experts" on LinkedIn (3,386 dormant subscribers).</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Content Line — what's coming next -->
-      <div class="section">
-        <div class="section-header">
-          <div class="section-title">Coming Up</div>
-          <div class="section-badge">next in line</div>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:10px;" id="coming-up-list">
-
-          <div class="content-item" data-ch="blog">
-            <div class="content-item-body">
-              <div class="content-item-tag-row">
-                <span class="channel-tag channel-blog">Blog</span>
-                <span class="content-item-topic">Partner & Ecosystem</span>
-              </div>
-              <div class="content-item-title">Article 1 — Startup Hubs & Accelerators</div>
-              <div class="content-item-desc">The gap between what accelerators offer (mentorship, funding, pitch training) and what startups actually need when they hit R&D execution bottlenecks. Positions R&D orchestration as the missing support layer for ecosystem operators.</div>
-            </div>
-            <div class="comments-area" id="comments-1">
-              <div class="add-comment-row">
-                <select id="author-1">
-                  <option value="Tina">Tina</option>
-                  <option value="Ecem">Ecem</option>
-                  <option value="Shams">Shams</option>
-                  <option value="Mehmet">Mehmet</option>
-                  <option value="Sefer">Sefer</option>
-                </select>
-                <input type="text" id="input-1" placeholder="Add a comment..." onkeydown="if(event.key==='Enter')addComment('1')">
-                <button onclick="addComment('1')">Post</button>
-              </div>
-            </div>
-            <div class="content-item-actions">
-              <button class="action-btn action-btn-complete" onclick="completeItem(this.closest('.content-item'))">✓ Complete</button>
-              <button class="action-btn action-btn-delete" onclick="deleteItem(this.closest('.content-item'))">Delete</button>
-            </div>
-          </div>
-
-          <div class="content-item" data-ch="blog">
-            <div class="content-item-body">
-              <div class="content-item-tag-row">
-                <span class="channel-tag channel-blog">Blog</span>
-                <span class="content-item-topic">Investor</span>
-              </div>
-              <div class="content-item-title">Article 2 — What Investors Evaluate in Technical Due Diligence</div>
-              <div class="content-item-desc">Dual audience: founders preparing to fundraise and investors themselves. What a structured R&D pipeline signals to investors, and how RESEARCHPRENEURS provides the validation layer.</div>
-            </div>
-            <div class="comments-area" id="comments-2">
-              <div class="add-comment-row">
-                <select id="author-2">
-                  <option value="Tina">Tina</option>
-                  <option value="Ecem">Ecem</option>
-                  <option value="Shams">Shams</option>
-                  <option value="Mehmet">Mehmet</option>
-                  <option value="Sefer">Sefer</option>
-                </select>
-                <input type="text" id="input-2" placeholder="Add a comment..." onkeydown="if(event.key==='Enter')addComment('2')">
-                <button onclick="addComment('2')">Post</button>
-              </div>
-            </div>
-            <div class="content-item-actions">
-              <button class="action-btn action-btn-complete" onclick="completeItem(this.closest('.content-item'))">✓ Complete</button>
-              <button class="action-btn action-btn-delete" onclick="deleteItem(this.closest('.content-item'))">Delete</button>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ===== PIPELINE VIEW ===== -->
-    <div class="view-section" id="view-pipeline">
-      <div class="main-header">
-        <div>
-          <h2>Completed</h2>
-          <p>Content marked as complete from the dashboard.</p>
-        </div>
-      </div>
-
-      <div style="display:flex; flex-direction:column; gap:10px;" id="completed-list">
-        <div class="empty-state" id="completed-empty">
-          <div class="empty-icon">✓</div>
-          <h3>No completed content yet</h3>
-          <p>When you mark content as complete on the dashboard, it appears here.</p>
-        </div>
+      <div class="ci" data-ch="blog">
+        <div class="ci-body"><div class="ci-tags"><span class="ch-tag ch-blog">Blog</span><span class="ci-topic">Partners — Investors</span></div><div class="ci-title">Article 2 — What Investors Evaluate in Technical Due Diligence</div><div class="ci-desc">Dual audience: founders preparing to fundraise and investors themselves. What a structured R&D pipeline signals to investors, and how RESEARCHPRENEURS provides the validation layer.</div></div>
+        <div class="cma" id="cma-2"><div class="acr"><select id="au-2"><option>Tina</option><option>Ecem</option><option>Shams</option><option>Mehmet</option><option>Sefer</option></select><input id="in-2" placeholder="Add a comment..." onkeydown="if(event.key==='Enter')postCm('2')"><button onclick="postCm('2')">Post</button></div></div>
+        <div class="ci-acts"><button class="ab ab-c" onclick="complete(this.closest('.ci'))">✓ Complete</button><button class="ab ab-d" onclick="del(this.closest('.ci'))">Delete</button></div>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- ===== IDEAS VIEW ===== -->
-    <div class="view-section" id="view-ideas">
-      <div class="main-header">
-        <div>
-          <h2>Ideas Board</h2>
-          <p>Capture ideas from team conversations, events, and competitor analysis.</p>
-        </div>
-        <div class="header-actions">
-          <button class="btn btn-primary" onclick="document.getElementById('idea-form').style.display = document.getElementById('idea-form').style.display === 'none' ? 'flex' : 'none'">+ Add Idea</button>
-        </div>
-      </div>
+<!-- COMPLETED -->
+<div class="vw" id="v-completed">
+  <div class="mh"><div><h2>Completed</h2><p>Content marked as complete from the dashboard.</p></div></div>
+  <div id="cp-list" style="display:flex;flex-direction:column;gap:10px">
+    <div class="es" id="cp-empty"><div class="es-ic">✓</div><h3>No completed content yet</h3><p>When you mark content as complete on the dashboard, it appears here.</p></div>
+  </div>
+</div>
 
-      <!-- Add idea form -->
-      <div id="idea-form" style="display:none; gap:8px; margin-bottom:16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; flex-wrap:wrap; align-items:flex-end;">
-        <div style="flex:1; min-width:200px;">
-          <div style="font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); margin-bottom:4px;">Title</div>
-          <input type="text" id="idea-title" placeholder="e.g. Healthtech founder interview series" style="width:100%; font-family:'DM Sans',sans-serif; font-size:13px; padding:8px 12px; border:1px solid var(--border); border-radius:6px; background:var(--surface-raised); color:var(--text); outline:none;">
-        </div>
-        <div style="flex:2; min-width:250px;">
-          <div style="font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); margin-bottom:4px;">Description (optional)</div>
-          <input type="text" id="idea-desc" placeholder="Quick note on the idea..." style="width:100%; font-family:'DM Sans',sans-serif; font-size:13px; padding:8px 12px; border:1px solid var(--border); border-radius:6px; background:var(--surface-raised); color:var(--text); outline:none;">
-        </div>
-        <div>
-          <div style="font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); margin-bottom:4px;">By</div>
-          <select id="idea-author" style="font-family:'DM Sans',sans-serif; font-size:12px; padding:8px 10px; border:1px solid var(--border); border-radius:6px; background:var(--surface-raised); color:var(--text-secondary); outline:none; cursor:pointer;">
-            <option value="Tina">Tina</option>
-            <option value="Ecem">Ecem</option>
-            <option value="Shams">Shams</option>
-            <option value="Mehmet" selected>Mehmet</option>
-            <option value="Sefer">Sefer</option>
-          </select>
-        </div>
-        <button onclick="addIdea()" style="font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; padding:8px 16px; border-radius:6px; border:1px solid var(--border); background:var(--text); color:var(--bg); cursor:pointer;">Add</button>
-      </div>
+<!-- IDEAS -->
+<div class="vw" id="v-ideas">
+  <div class="mh"><div><h2>Ideas Board</h2><p>Capture ideas from team conversations, events, and competitor analysis.</p></div><div class="ha"><button class="btn btn-p" onclick="toggle('id-fm')">+ Add Idea</button></div></div>
+  <div class="fm" id="id-fm">
+    <div style="flex:1;min-width:200px"><div class="fm-lbl">Title</div><input id="id-ti" placeholder="e.g. Healthtech founder interview series"></div>
+    <div style="flex:2;min-width:250px"><div class="fm-lbl">Description (optional)</div><input id="id-de" placeholder="Quick note on the idea..."></div>
+    <div><div class="fm-lbl">By</div><select id="id-au"><option>Tina</option><option>Ecem</option><option>Shams</option><option selected>Mehmet</option><option>Sefer</option></select></div>
+    <button onclick="addIdea()">Add</button>
+  </div>
+  <div id="id-list" style="display:flex;flex-direction:column;gap:10px">
+    <div class="es" id="id-empty"><div class="es-ic">✦</div><h3>No ideas yet</h3><p>Click "+ Add Idea" to start collecting content ideas from the team.</p></div>
+  </div>
+</div>
 
-      <div style="display:flex; flex-direction:column; gap:10px;" id="ideas-list">
-        <div class="empty-state" id="ideas-empty">
-          <div class="empty-icon">✦</div>
-          <h3>No ideas yet</h3>
-          <p>Click "+ Add Idea" to start collecting content ideas from the team.</p>
-        </div>
-      </div>
-    </div>
+<!-- CONTENT GAPS -->
+<div class="vw" id="v-gaps">
+  <div class="mh"><div><h2>Content Gaps</h2><p>Content needed priorities</p></div><div class="ha"><button class="btn btn-p" onclick="toggle('gp-fm')">+ Add Content Idea</button></div></div>
+  <div class="fm" id="gp-fm">
+    <div><div class="fm-lbl">Channel</div><select id="gp-ch"><option value="blog">Blog</option><option value="youtube">YouTube</option><option value="newsletter">Newsletter</option></select></div>
+    <div><div class="fm-lbl">Audience</div><select id="gp-cat"><option>Startups & SMEs</option><option>Corporates</option><option>Partners — Startup Hubs</option><option>Partners — Investors</option><option>Partners — Complementary</option><option>Experts</option><option>Ecosystem / General</option></select></div>
+    <div style="flex:1;min-width:200px"><div class="fm-lbl">Title</div><input id="gp-ti" placeholder="e.g. No healthtech deep dive"></div>
+    <div style="flex:2;min-width:250px"><div class="fm-lbl">Description</div><input id="gp-de" placeholder="Short description of the gap..."></div>
+    <div><div class="fm-lbl">Priority</div><select id="gp-pr"><option value="high">High</option><option value="medium" selected>Medium</option><option value="low">Low</option></select></div>
+    <button onclick="addGap()">Add</button>
+  </div>
+  <div id="gp-list" style="display:flex;flex-direction:column;gap:12px">
+    <div class="gi"><div style="flex:1"><div style="font-weight:600;margin-bottom:4px">Zero partner & investor content</div><div style="font-size:13px;color:var(--ts)">Website has partner page and investor messaging, but blog has nothing for this audience. No articles on due diligence, ecosystem support, or portfolio R&D.</div></div><div style="display:flex;align-items:center;gap:8px;flex-shrink:0"><span class="pl pl-h">High</span><span class="del" onclick="del(this.closest('.gi'))">✕</span></div></div>
+    <div class="gi"><div style="flex:1"><div style="font-weight:600;margin-bottom:4px">No comparison or decision-stage content</div><div style="font-size:13px;color:var(--ts)">No "build vs. buy" frameworks, no fractional vs. full-time comparisons. The highest-converting content type is completely missing.</div></div><div style="display:flex;align-items:center;gap:8px;flex-shrink:0"><span class="pl pl-h">High</span><span class="del" onclick="del(this.closest('.gi'))">✕</span></div></div>
+    <div class="gi"><div style="flex:1"><div style="font-weight:600;margin-bottom:4px">No DACH or regional content</div><div style="font-size:13px;color:var(--ts)">Company based in Heilbronn, operates across DACH, but nothing addresses European or German-speaking startup challenges specifically.</div></div><div style="display:flex;align-items:center;gap:8px;flex-shrink:0"><span class="pl pl-m">Medium</span><span class="del" onclick="del(this.closest('.gi'))">✕</span></div></div>
+    <div class="gi"><div style="flex:1"><div style="font-weight:600;margin-bottom:4px">Blog hasn't caught up to orchestration positioning</div><div style="font-size:13px;color:var(--ts)">Older articles still talk about expert matching and freelancing. Brand has evolved to full Tech & BizDev Orchestration but blog content lags behind.</div></div><div style="display:flex;align-items:center;gap:8px;flex-shrink:0"><span class="pl pl-m">Medium</span><span class="del" onclick="del(this.closest('.gi'))">✕</span></div></div>
+  </div>
+</div>
 
-    <!-- ===== CONTENT GAPS VIEW ===== -->
-    <div class="view-section" id="view-gaps">
-      <div class="main-header">
-        <div>
-          <h2>Content Gaps</h2>
-          <p>Content needed priorities</p>
-        </div>
-        <div class="header-actions">
-          <button class="btn btn-primary" onclick="document.getElementById('gap-form').style.display = document.getElementById('gap-form').style.display === 'none' ? 'flex' : 'none'">+ Add Content Idea</button>
-        </div>
-      </div>
+<!-- TEAM NOTES -->
+<div class="vw" id="v-notes">
+  <div class="mh"><div><h2>Team Notes</h2><p>Meeting notes, feedback, and reference material from the team.</p></div><div class="ha"><button class="btn btn-p" onclick="toggle('nt-fm')">+ Add Note</button></div></div>
+  <div class="fm" id="nt-fm">
+    <div style="flex:1;min-width:200px"><div class="fm-lbl">Title</div><input id="nt-ti" placeholder="e.g. Meeting with Ecem — March 8"></div>
+    <div style="flex:2;min-width:250px"><div class="fm-lbl">Note</div><input id="nt-de" placeholder="What was discussed, decided, or assigned..."></div>
+    <div><div class="fm-lbl">By</div><select id="nt-au"><option>Tina</option><option>Ecem</option><option>Shams</option><option selected>Mehmet</option><option>Sefer</option></select></div>
+    <button onclick="addNote()">Add</button>
+  </div>
+  <div id="nt-list" style="display:flex;flex-direction:column;gap:10px">
+    <div class="es" id="nt-empty"><div class="es-ic">¶</div><h3>No notes yet</h3><p>Click "+ Add Note" to capture meeting notes, feedback, and reference material.</p></div>
+  </div>
+</div>
 
-      <!-- Add form (hidden by default) -->
-      <div id="gap-form" style="display:none; gap:8px; margin-bottom:16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; flex-wrap:wrap; align-items:flex-end;">
-        <div style="flex:1; min-width:200px;">
-          <div style="font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); margin-bottom:4px;">Title</div>
-          <input type="text" id="gap-title" placeholder="e.g. No healthtech deep dive" style="width:100%; font-family:'DM Sans',sans-serif; font-size:13px; padding:8px 12px; border:1px solid var(--border); border-radius:6px; background:var(--surface-raised); color:var(--text); outline:none;">
-        </div>
-        <div style="flex:2; min-width:250px;">
-          <div style="font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); margin-bottom:4px;">Description</div>
-          <input type="text" id="gap-desc" placeholder="Short description of the gap..." style="width:100%; font-family:'DM Sans',sans-serif; font-size:13px; padding:8px 12px; border:1px solid var(--border); border-radius:6px; background:var(--surface-raised); color:var(--text); outline:none;">
-        </div>
-        <div>
-          <div style="font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); margin-bottom:4px;">Priority</div>
-          <select id="gap-priority" style="font-family:'DM Sans',sans-serif; font-size:12px; padding:8px 10px; border:1px solid var(--border); border-radius:6px; background:var(--surface-raised); color:var(--text-secondary); outline:none; cursor:pointer;">
-            <option value="high">High</option>
-            <option value="medium" selected>Medium</option>
-            <option value="low">Low</option>
-          </select>
-        </div>
-        <button onclick="addGap()" style="font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; padding:8px 16px; border-radius:6px; border:1px solid var(--border); background:var(--text); color:var(--bg); cursor:pointer;">Add</button>
-      </div>
-
-      <div style="display:flex; flex-direction:column; gap:12px;" id="gaps-list">
-        <div class="gap-item" style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; border-left:3px solid var(--blog); display:flex; align-items:flex-start; justify-content:space-between; gap:16px;">
-          <div style="flex:1;">
-            <div style="font-weight:600; margin-bottom:4px;">Zero partner & investor content</div>
-            <div style="font-size:13px; color:var(--text-secondary);">Website has partner page and investor messaging, but blog has nothing for this audience. No articles on due diligence, ecosystem support, or portfolio R&D.</div>
-          </div>
-          <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
-            <span class="priority-label priority-label-high">High</span>
-            <span class="comment-delete" onclick="deleteItem(this.closest('.gap-item'))" title="Delete">✕</span>
-          </div>
-        </div>
-        <div class="gap-item" style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; border-left:3px solid var(--blog); display:flex; align-items:flex-start; justify-content:space-between; gap:16px;">
-          <div style="flex:1;">
-            <div style="font-weight:600; margin-bottom:4px;">No comparison or decision-stage content</div>
-            <div style="font-size:13px; color:var(--text-secondary);">No "build vs. buy" frameworks, no fractional vs. full-time comparisons. The highest-converting content type is completely missing.</div>
-          </div>
-          <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
-            <span class="priority-label priority-label-high">High</span>
-            <span class="comment-delete" onclick="deleteItem(this.closest('.gap-item'))" title="Delete">✕</span>
-          </div>
-        </div>
-        <div class="gap-item" style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; border-left:3px solid var(--blog); display:flex; align-items:flex-start; justify-content:space-between; gap:16px;">
-          <div style="flex:1;">
-            <div style="font-weight:600; margin-bottom:4px;">No DACH or regional content</div>
-            <div style="font-size:13px; color:var(--text-secondary);">Company based in Heilbronn, operates across DACH, but nothing addresses European or German-speaking startup challenges specifically.</div>
-          </div>
-          <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
-            <span class="priority-label priority-label-medium">Medium</span>
-            <span class="comment-delete" onclick="deleteItem(this.closest('.gap-item'))" title="Delete">✕</span>
-          </div>
-        </div>
-        <div class="gap-item" style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; border-left:3px solid var(--blog); display:flex; align-items:flex-start; justify-content:space-between; gap:16px;">
-          <div style="flex:1;">
-            <div style="font-weight:600; margin-bottom:4px;">Blog hasn't caught up to orchestration positioning</div>
-            <div style="font-size:13px; color:var(--text-secondary);">Older articles still talk about expert matching and freelancing. Brand has evolved to full Tech & BizDev Orchestration but blog content lags behind.</div>
-          </div>
-          <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
-            <span class="priority-label priority-label-medium">Medium</span>
-            <span class="comment-delete" onclick="deleteItem(this.closest('.gap-item'))" title="Delete">✕</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== TEAM NOTES VIEW ===== -->
-    <div class="view-section" id="view-notes">
-      <div class="main-header">
-        <div>
-          <h2>Team Notes</h2>
-          <p>Meeting notes, feedback, and reference material from the team.</p>
-        </div>
-        <div class="header-actions">
-          <button class="btn btn-primary">+ Add Note</button>
-        </div>
-      </div>
-
-      <div class="empty-state">
-        <div class="empty-icon">¶</div>
-        <h3>No notes yet</h3>
-        <p>Add meeting notes, feedback from Ecem or Tina, and reference material here.</p>
-      </div>
-    </div>
-
-  </main>
+</main>
 </div>
 
 <script>
-  let commentCounter = 10;
+let cc=10;
+const ts=()=>{const n=new Date();return n.toLocaleDateString('en-GB',{day:'numeric',month:'short'})+', '+n.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})};
+const ds=()=>{const n=new Date();return n.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})};
 
-  function switchView(view) {
-    document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-    document.getElementById('view-' + view).classList.add('active');
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-  }
+function sw(v,el){document.querySelectorAll('.vw').forEach(e=>e.classList.remove('on'));document.getElementById('v-'+v).classList.add('on');document.querySelectorAll('.nav-i').forEach(e=>e.classList.remove('on'));el.classList.add('on')}
+function toggle(id){const f=document.getElementById(id);f.style.display=f.style.display==='flex'?'none':'flex'}
+function del(el){el.style.opacity='0';el.style.transition='opacity .15s';setTimeout(()=>el.remove(),150)}
 
-  function addComment(id) {
-    const input = document.getElementById('input-' + id);
-    const author = document.getElementById('author-' + id);
-    const text = input.value.trim();
-    if (!text) return;
+function postCm(id){
+  const i=document.getElementById('in-'+id),a=document.getElementById('au-'+id),t=i.value.trim();
+  if(!t)return;
+  const c=document.getElementById('cma-'+id),r=c.querySelector('.acr'),d=document.createElement('div');
+  d.className='cm';
+  d.innerHTML=`<span class="cm-auth">${a.value}</span><span class="cm-txt">${t}</span><span class="cm-time">${ts()}</span><span class="cm-del" onclick="del(this.parentElement)">✕</span>`;
+  c.insertBefore(d,r);i.value='';i.focus();
+}
 
-    const commentsArea = document.getElementById('comments-' + id);
-    const addRow = commentsArea.querySelector('.add-comment-row');
+function complete(el){
+  const t=el.querySelector('.ci-title').textContent,tg=el.querySelector('.ch-tag').textContent,tp=el.querySelector('.ci-topic')?.textContent||'';
+  const e=document.getElementById('cp-empty');if(e)e.remove();
+  const l=document.getElementById('cp-list'),d=document.createElement('div');d.className='cpi';
+  d.innerHTML=`<div><div class="cpi-title">${t}</div><div class="cpi-meta">${tg}${tp?' · '+tp:''} · Completed ${ds()}</div></div><div style="display:flex;align-items:center;gap:8px"><span class="cp-badge">Done</span><span class="del" onclick="del(this.closest('.cpi'))">✕</span></div>`;
+  l.appendChild(d);del(el);
+}
 
-    const comment = document.createElement('div');
-    comment.className = 'comment';
+function addCU(){
+  const ch=document.getElementById('cu-ch').value,cat=document.getElementById('cu-cat').value,ti=document.getElementById('cu-ti').value.trim(),de=document.getElementById('cu-de').value.trim();
+  if(!ti)return;cc++;const id=cc,cl='ch-'+ch,lb=ch.charAt(0).toUpperCase()+ch.slice(1);
+  const l=document.getElementById('cu-list'),d=document.createElement('div');d.className='ci';d.setAttribute('data-ch',ch);
+  d.innerHTML=`<div class="ci-body"><div class="ci-tags"><span class="ch-tag ${cl}">${lb}</span><span class="ci-topic">${cat}</span></div><div class="ci-title">${ti}</div>${de?`<div class="ci-desc">${de}</div>`:''}</div><div class="cma" id="cma-${id}"><div class="acr"><select id="au-${id}"><option>Tina</option><option>Ecem</option><option>Shams</option><option>Mehmet</option><option>Sefer</option></select><input id="in-${id}" placeholder="Add a comment..." onkeydown="if(event.key==='Enter')postCm('${id}')"><button onclick="postCm('${id}')">Post</button></div></div><div class="ci-acts"><button class="ab ab-c" onclick="complete(this.closest('.ci'))">✓ Complete</button><button class="ab ab-d" onclick="del(this.closest('.ci'))">Delete</button></div>`;
+  l.appendChild(d);document.getElementById('cu-ti').value='';document.getElementById('cu-de').value='';toggle('cu-fm');
+}
 
-    const now = new Date();
-    const time = now.toLocaleDateString('en-GB', { day:'numeric', month:'short' }) + ', ' + now.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
+function addGap(){
+  const ch=document.getElementById('gp-ch').value,cat=document.getElementById('gp-cat').value,ti=document.getElementById('gp-ti').value.trim(),de=document.getElementById('gp-de').value.trim(),pr=document.getElementById('gp-pr').value;
+  if(!ti)return;
+  const cv=ch==='blog'?'var(--bl)':ch==='youtube'?'var(--yt)':'var(--nl)',cl='ch-'+ch,lb=ch.charAt(0).toUpperCase()+ch.slice(1),pc='pl-'+pr[0],pt=pr.charAt(0).toUpperCase()+pr.slice(1);
+  const l=document.getElementById('gp-list'),d=document.createElement('div');d.className='gi';d.style.borderLeftColor=cv;
+  d.innerHTML=`<div style="flex:1"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="ch-tag ${cl}">${lb}</span><span style="font-size:11px;color:var(--tm)">${cat}</span></div><div style="font-weight:600;margin-bottom:4px">${ti}</div>${de?`<div style="font-size:13px;color:var(--ts)">${de}</div>`:''}</div><div style="display:flex;align-items:center;gap:8px;flex-shrink:0"><span class="pl ${pc}">${pt}</span><span class="del" onclick="del(this.closest('.gi'))">✕</span></div>`;
+  l.appendChild(d);document.getElementById('gp-ti').value='';document.getElementById('gp-de').value='';toggle('gp-fm');
+}
 
-    comment.innerHTML = `
-      <span class="comment-author">${author.value}</span>
-      <span class="comment-text">${text}</span>
-      <span class="comment-time">${time}</span>
-      <span class="comment-delete" onclick="deleteItem(this.parentElement)" title="Delete">✕</span>
-    `;
+function addIdea(){
+  const ti=document.getElementById('id-ti').value.trim(),de=document.getElementById('id-de').value.trim(),au=document.getElementById('id-au').value;
+  if(!ti)return;const e=document.getElementById('id-empty');if(e)e.remove();
+  const l=document.getElementById('id-list'),d=document.createElement('div');d.className='ii';
+  d.innerHTML=`<div style="flex:1"><div class="ii-title">${ti}</div>${de?`<div class="ii-desc">${de}</div>`:''}<div class="ii-auth">Added by ${au}</div></div><span class="del" onclick="del(this.closest('.ii'))">✕</span>`;
+  l.appendChild(d);document.getElementById('id-ti').value='';document.getElementById('id-de').value='';toggle('id-fm');
+}
 
-    commentsArea.insertBefore(comment, addRow);
-    input.value = '';
-    input.focus();
-  }
-
-  function deleteItem(el) {
-    el.style.opacity = '0';
-    el.style.transition = 'opacity 0.15s ease';
-    setTimeout(() => el.remove(), 150);
-  }
-
-  function completeItem(el) {
-    const title = el.querySelector('.content-item-title').textContent;
-    const tag = el.querySelector('.channel-tag').textContent;
-    const topic = el.querySelector('.content-item-topic') ? el.querySelector('.content-item-topic').textContent : '';
-
-    const now = new Date();
-    const date = now.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
-
-    // Remove empty state if present
-    const emptyState = document.getElementById('completed-empty');
-    if (emptyState) emptyState.remove();
-
-    // Add to completed list
-    const list = document.getElementById('completed-list');
-    const item = document.createElement('div');
-    item.className = 'completed-item';
-    item.innerHTML = `
-      <div>
-        <div class="completed-item-title">${title}</div>
-        <div class="completed-item-meta">${tag}${topic ? ' · ' + topic : ''} · Completed ${date}</div>
-      </div>
-      <div style="display:flex; align-items:center; gap:8px;">
-        <span class="completed-badge">Done</span>
-        <span class="comment-delete" onclick="deleteItem(this.closest('.completed-item'))" title="Delete">✕</span>
-      </div>
-    `;
-    list.appendChild(item);
-
-    // Remove from coming up
-    el.style.opacity = '0';
-    el.style.transition = 'opacity 0.15s ease';
-    setTimeout(() => el.remove(), 150);
-  }
-
-  function addGap() {
-    const title = document.getElementById('gap-title').value.trim();
-    const desc = document.getElementById('gap-desc').value.trim();
-    const priority = document.getElementById('gap-priority').value;
-    if (!title) return;
-
-    const list = document.getElementById('gaps-list');
-    const item = document.createElement('div');
-    item.className = 'gap-item';
-    item.style.cssText = 'background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; border-left:3px solid var(--blog); display:flex; align-items:flex-start; justify-content:space-between; gap:16px;';
-
-    const labelClass = 'priority-label-' + priority;
-    const labelText = priority.charAt(0).toUpperCase() + priority.slice(1);
-
-    item.innerHTML = `
-      <div style="flex:1;">
-        <div style="font-weight:600; margin-bottom:4px;">${title}</div>
-        ${desc ? `<div style="font-size:13px; color:var(--text-secondary);">${desc}</div>` : ''}
-      </div>
-      <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
-        <span class="priority-label ${labelClass}">${labelText}</span>
-        <span class="comment-delete" onclick="deleteItem(this.closest('.gap-item'))" title="Delete">✕</span>
-      </div>
-    `;
-
-    list.appendChild(item);
-    document.getElementById('gap-title').value = '';
-    document.getElementById('gap-desc').value = '';
-    document.getElementById('gap-form').style.display = 'none';
-  }
-
-  function addIdea() {
-    const title = document.getElementById('idea-title').value.trim();
-    const desc = document.getElementById('idea-desc').value.trim();
-    const author = document.getElementById('idea-author').value;
-    if (!title) return;
-
-    // Remove empty state if present
-    const emptyState = document.getElementById('ideas-empty');
-    if (emptyState) emptyState.remove();
-
-    const list = document.getElementById('ideas-list');
-    const item = document.createElement('div');
-    item.className = 'idea-item';
-
-    item.innerHTML = `
-      <div style="flex:1;">
-        <div class="idea-item-title">${title}</div>
-        ${desc ? `<div class="idea-item-desc">${desc}</div>` : ''}
-        <div class="idea-item-author">Added by ${author}</div>
-      </div>
-      <span class="comment-delete" onclick="deleteItem(this.closest('.idea-item'))" title="Delete" style="opacity:0.5;">✕</span>
-    `;
-
-    list.appendChild(item);
-    document.getElementById('idea-title').value = '';
-    document.getElementById('idea-desc').value = '';
-    document.getElementById('idea-form').style.display = 'none';
-  }
+function addNote(){
+  const ti=document.getElementById('nt-ti').value.trim(),de=document.getElementById('nt-de').value.trim(),au=document.getElementById('nt-au').value;
+  if(!ti&&!de)return;const e=document.getElementById('nt-empty');if(e)e.remove();
+  const l=document.getElementById('nt-list'),d=document.createElement('div');d.className='ii';
+  d.innerHTML=`<div style="flex:1">${ti?`<div class="ii-title">${ti}</div>`:''}${de?`<div class="ii-desc">${de}</div>`:''}<div class="ii-auth">${au} · ${ds()}</div></div><span class="del" onclick="del(this.closest('.ii'))">✕</span>`;
+  l.appendChild(d);document.getElementById('nt-ti').value='';document.getElementById('nt-de').value='';toggle('nt-fm');
+}
 </script>
-
 </body>
 </html>
