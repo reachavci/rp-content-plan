@@ -265,7 +265,7 @@ function complete(el){
   const e=document.getElementById('cp-empty');if(e)e.remove();
   const l=document.getElementById('cp-list'),d=document.createElement('div');d.className='cpi';
   d.innerHTML=`<div><div class="cpi-title">${t}</div><div class="cpi-meta">${tg}${tp?' · '+tp:''} · Completed ${ds()}</div></div><div style="display:flex;align-items:center;gap:8px"><span class="cp-badge">Done</span><span class="del" onclick="del(this.closest('.cpi'))">✕</span></div>`;
-  l.appendChild(d);del(el);
+  l.prepend(d);del(el);
 }
 
 function addCU(){
@@ -273,7 +273,7 @@ function addCU(){
   if(!ti)return;cc++;const id=cc,cl='ch-'+ch,lb=ch.charAt(0).toUpperCase()+ch.slice(1);
   const l=document.getElementById('cu-list'),d=document.createElement('div');d.className='ci';d.setAttribute('data-ch',ch);
   d.innerHTML=`<div class="ci-body"><div class="ci-tags"><span class="ch-tag ${cl}">${lb}</span><span class="ci-topic">${cat}</span></div><div class="ci-title">${ti}</div>${de?`<div class="ci-desc">${de}</div>`:''}</div><div class="cma" id="cma-${id}"><div class="acr"><select id="au-${id}"><option>Tina</option><option>Ecem</option><option>Shams</option><option>Mehmet</option><option>Sefer</option></select><input id="in-${id}" placeholder="Add a comment..." onkeydown="if(event.key==='Enter')postCm('${id}')"><button onclick="postCm('${id}')">Post</button></div></div><div class="ci-acts"><button class="ab ab-c" onclick="complete(this.closest('.ci'))">✓ Complete</button><button class="ab ab-d" onclick="del(this.closest('.ci'))">Delete</button></div>`;
-  l.appendChild(d);document.getElementById('cu-ti').value='';document.getElementById('cu-de').value='';toggle('cu-fm');
+  l.prepend(d);document.getElementById('cu-ti').value='';document.getElementById('cu-de').value='';toggle('cu-fm');
 }
 
 function addGap(){
@@ -282,7 +282,7 @@ function addGap(){
   const cv=ch==='blog'?'var(--bl)':ch==='youtube'?'var(--yt)':'var(--nl)',cl='ch-'+ch,lb=ch.charAt(0).toUpperCase()+ch.slice(1),pc='pl-'+pr[0],pt=pr.charAt(0).toUpperCase()+pr.slice(1);
   const l=document.getElementById('gp-list'),d=document.createElement('div');d.className='gi';d.style.borderLeftColor=cv;
   d.innerHTML=`<div style="flex:1"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="ch-tag ${cl}">${lb}</span><span style="font-size:11px;color:var(--tm)">${cat}</span></div><div style="font-weight:600;margin-bottom:4px">${ti}</div>${de?`<div style="font-size:13px;color:var(--ts)">${de}</div>`:''}</div><div style="display:flex;align-items:center;gap:8px;flex-shrink:0"><span class="pl ${pc}">${pt}</span><span class="del" onclick="del(this.closest('.gi'))">✕</span></div>`;
-  l.appendChild(d);document.getElementById('gp-ti').value='';document.getElementById('gp-de').value='';toggle('gp-fm');
+  l.prepend(d);document.getElementById('gp-ti').value='';document.getElementById('gp-de').value='';toggle('gp-fm');
 }
 
 function addIdea(){
@@ -290,7 +290,7 @@ function addIdea(){
   if(!ti)return;const e=document.getElementById('id-empty');if(e)e.remove();
   const l=document.getElementById('id-list'),d=document.createElement('div');d.className='ii';
   d.innerHTML=`<div style="flex:1"><div class="ii-title">${ti}</div>${de?`<div class="ii-desc">${de}</div>`:''}<div class="ii-auth">Added by ${au}</div></div><span class="del" onclick="del(this.closest('.ii'))">✕</span>`;
-  l.appendChild(d);document.getElementById('id-ti').value='';document.getElementById('id-de').value='';toggle('id-fm');
+  l.prepend(d);document.getElementById('id-ti').value='';document.getElementById('id-de').value='';toggle('id-fm');
 }
 
 function addNote(){
@@ -298,7 +298,7 @@ function addNote(){
   if(!ti&&!de)return;const e=document.getElementById('nt-empty');if(e)e.remove();
   const l=document.getElementById('nt-list'),d=document.createElement('div');d.className='ii';
   d.innerHTML=`<div style="flex:1">${ti?`<div class="ii-title">${ti}</div>`:''}${de?`<div class="ii-desc">${de}</div>`:''}<div class="ii-auth">${au} · ${ds()}</div></div><span class="del" onclick="del(this.closest('.ii'))">✕</span>`;
-  l.appendChild(d);document.getElementById('nt-ti').value='';document.getElementById('nt-de').value='';toggle('nt-fm');
+  l.prepend(d);document.getElementById('nt-ti').value='';document.getElementById('nt-de').value='';toggle('nt-fm');
 }
 </script>
 </body>
