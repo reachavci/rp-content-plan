@@ -10,7 +10,6 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
 .app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
-/* Sidebar */
 .sb{background:var(--sf);border-right:1px solid var(--bd);padding:32px 0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
 .sb-brand{padding:0 24px;margin-bottom:40px}
 .sb-brand h1{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--tx);margin-bottom:4px}
@@ -21,9 +20,9 @@ body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;line-
 .nav-i.on{color:var(--tx);border-left-color:var(--tx);background:#1a181508}
 .nav-ic{width:16px;font-size:14px;text-align:center;flex-shrink:0}
 .sb-ft{padding:16px 24px;border-top:1px solid var(--bd);font-size:11px;color:var(--tm);display:flex;flex-direction:column;gap:4px}
-.sb-ft .dot{width:6px;height:6px;border-radius:50%;background:var(--md);display:inline-block;margin-right:6px;animation:pulse 2s infinite}
+.sb-ft .dot{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:6px;animation:pulse 2s infinite}
+.dot-ok{background:var(--md)}.dot-err{background:var(--yt)}.dot-load{background:var(--nl)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-/* Main */
 .mn{padding:40px 48px 80px;overflow-y:auto}
 .mh{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:48px}
 .mh h2{font-family:'DM Serif Display',serif;font-size:32px;font-weight:400;line-height:1.2;margin-bottom:6px}
@@ -33,37 +32,26 @@ body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;line-
 .btn:hover{background:var(--sfh);color:var(--tx);border-color:var(--tm)}
 .btn-p{background:var(--tx);color:var(--bg);border-color:var(--tx)}
 .btn-p:hover{background:#333;color:var(--bg);border-color:#333}
-/* Section */
 .sec{margin-bottom:48px}
 .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--bd)}
 .st{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400}
-/* Channel grid */
 .cg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .cc{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:24px;position:relative;overflow:hidden}
 .cc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
-.cc[data-ch=blog]::before{background:var(--bl)}
-.cc[data-ch=youtube]::before{background:var(--yt)}
-.cc[data-ch=newsletter]::before{background:var(--nl)}
+.cc[data-ch=blog]::before{background:var(--bl)}.cc[data-ch=youtube]::before{background:var(--yt)}.cc[data-ch=newsletter]::before{background:var(--nl)}
 .cc-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
-.cc[data-ch=blog] .cc-lbl{color:var(--bl)}
-.cc[data-ch=youtube] .cc-lbl{color:var(--yt)}
-.cc[data-ch=newsletter] .cc-lbl{color:var(--nl)}
+.cc[data-ch=blog] .cc-lbl{color:var(--bl)}.cc[data-ch=youtube] .cc-lbl{color:var(--yt)}.cc[data-ch=newsletter] .cc-lbl{color:var(--nl)}
 .cc-role{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:8px}
 .cc-desc{font-size:13px;color:var(--ts);line-height:1.6}
-/* Content item */
 .ci{background:var(--sf);border:1px solid var(--bd);border-radius:10px;border-left:3px solid var(--bl);overflow:hidden}
-.ci[data-ch=youtube]{border-left-color:var(--yt)}
-.ci[data-ch=newsletter]{border-left-color:var(--nl)}
+.ci[data-ch=youtube]{border-left-color:var(--yt)}.ci[data-ch=newsletter]{border-left-color:var(--nl)}
 .ci-body{padding:20px 24px}
 .ci-tags{display:flex;align-items:center;gap:8px;margin-bottom:6px}
 .ci-topic{font-size:11px;color:var(--tm)}
 .ci-title{font-weight:500;font-size:15px;margin-bottom:4px}
 .ci-desc{font-size:13px;color:var(--ts);line-height:1.6}
 .ch-tag{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;padding:3px 8px;border-radius:4px;display:inline-block}
-.ch-blog{background:#2563eb0d;color:var(--bl)}
-.ch-youtube{background:#dc26260d;color:var(--yt)}
-.ch-newsletter{background:#c2780a0d;color:var(--nl)}
-/* Comments */
+.ch-blog{background:#2563eb0d;color:var(--bl)}.ch-youtube{background:#dc26260d;color:var(--yt)}.ch-newsletter{background:#c2780a0d;color:var(--nl)}
 .cma{border-top:1px solid var(--bdl);padding:0 24px}
 .cm{padding:10px 0;border-bottom:1px solid var(--bdl);display:flex;gap:10px;align-items:flex-start;font-size:13px}
 .cm:last-of-type{border-bottom:none}
@@ -71,66 +59,76 @@ body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;line-
 .cm-txt{color:var(--ts);line-height:1.5}
 .cm-time{font-size:10px;color:var(--tm);margin-left:auto;flex-shrink:0}
 .cm-del{font-size:11px;color:var(--tm);cursor:pointer;opacity:0;transition:opacity .15s;flex-shrink:0;padding:0 4px}
-.cm:hover .cm-del{opacity:1}
-.cm-del:hover{color:var(--yt)}
-/* Add comment row */
+.cm:hover .cm-del{opacity:1}.cm-del:hover{color:var(--yt)}
 .acr{display:flex;align-items:center;gap:8px;padding:10px 0}
 .acr input{flex:1;font-family:'DM Sans',sans-serif;font-size:12px;padding:7px 12px;border:1px solid var(--bd);border-radius:6px;background:var(--sfr);color:var(--tx);outline:none;transition:border-color .15s}
-.acr input:focus{border-color:var(--tm)}
-.acr input::placeholder{color:var(--tm)}
+.acr input:focus{border-color:var(--tm)}.acr input::placeholder{color:var(--tm)}
 .acr select,.fm select{font-family:'DM Sans',sans-serif;font-size:11px;padding:7px 10px;border:1px solid var(--bd);border-radius:6px;background:var(--sfr);color:var(--ts);outline:none;cursor:pointer}
 .acr button,.fm button{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;padding:7px 14px;border-radius:6px;border:1px solid var(--bd);background:var(--tx);color:var(--bg);cursor:pointer;transition:background .15s}
 .acr button:hover,.fm button:hover{background:#333}
-/* Actions */
 .ci-acts{display:flex;align-items:center;gap:6px;padding:8px 24px 12px}
 .ab{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;padding:5px 12px;border-radius:5px;border:1px solid var(--bd);background:var(--sf);color:var(--tm);cursor:pointer;transition:all .15s}
 .ab:hover{border-color:var(--tm);color:var(--ts)}
-.ab-c{color:var(--md);border-color:#0d7c4a33}
-.ab-c:hover{background:#0d7c4a0d;border-color:var(--md);color:var(--md)}
+.ab-c{color:var(--md);border-color:#0d7c4a33}.ab-c:hover{background:#0d7c4a0d;border-color:var(--md);color:var(--md)}
 .ab-d:hover{background:#dc26260d;border-color:var(--yt);color:var(--yt)}
-/* Priority */
 .pl{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;padding:3px 10px;border-radius:4px}
-.pl-h{background:#dc26260d;color:var(--yt)}
-.pl-m{background:#c2780a0d;color:var(--nl)}
-.pl-l{background:var(--sfh);color:var(--tm)}
-/* Completed */
+.pl-h{background:#dc26260d;color:var(--yt)}.pl-m{background:#c2780a0d;color:var(--nl)}.pl-l{background:var(--sfh);color:var(--tm)}
 .cpi{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .cpi-title{font-weight:500;font-size:14px}
 .cpi-meta{font-size:11px;color:var(--tm);margin-top:2px}
 .cp-badge{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;padding:3px 10px;border-radius:4px;background:#0d7c4a0d;color:var(--md);flex-shrink:0}
-/* Gap item */
 .gi{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:20px 24px;border-left:3px solid var(--bl);display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
-/* Idea / Note item */
 .ii{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:16px 20px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
 .ii-title{font-weight:500;font-size:14px;margin-bottom:2px}
 .ii-desc{font-size:12px;color:var(--ts);line-height:1.5}
 .ii-auth{font-size:10px;color:var(--tm);margin-top:6px}
-/* Forms */
 .fm{display:none;gap:8px;margin-bottom:16px;background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:16px 20px;flex-wrap:wrap;align-items:flex-end}
 .fm-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--tm);margin-bottom:4px}
 .fm input{width:100%;font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 12px;border:1px solid var(--bd);border-radius:6px;background:var(--sfr);color:var(--tx);outline:none}
 .fm select{font-size:12px;padding:8px 10px}
-/* Delete icon (reusable) */
 .del{font-size:11px;color:var(--tm);cursor:pointer;opacity:.5;transition:opacity .15s;flex-shrink:0;padding:0 4px}
 .del:hover{opacity:1;color:var(--yt)}
-/* Empty state */
 .es{text-align:center;padding:60px 20px;color:var(--tm)}
 .es h3{font-family:'DM Serif Display',serif;font-size:18px;color:var(--ts);margin-bottom:6px;font-weight:400}
 .es p{font-size:13px;max-width:360px;margin:0 auto}
 .es-ic{font-size:32px;margin-bottom:12px;opacity:.4}
-/* Views */
-.vw{display:none}
-.vw.on{display:block}
-/* Responsive */
+.vw{display:none}.vw.on{display:block}
+.setup-overlay{position:fixed;inset:0;background:rgba(26,24,21,.6);backdrop-filter:blur(4px);z-index:100;display:flex;align-items:center;justify-content:center;padding:24px}
+.setup-box{background:var(--sf);border-radius:14px;padding:40px;max-width:520px;width:100%;box-shadow:0 24px 48px rgba(0,0,0,.15)}
+.setup-box h2{font-family:'DM Serif Display',serif;font-size:24px;font-weight:400;margin-bottom:8px}
+.setup-box>p{font-size:13px;color:var(--ts);line-height:1.6;margin-bottom:24px}
+.setup-box label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--tm);margin-bottom:6px}
+.setup-box input{width:100%;font-family:'JetBrains Mono',monospace;font-size:12px;padding:10px 14px;border:1px solid var(--bd);border-radius:8px;background:var(--sfr);color:var(--tx);outline:none;margin-bottom:16px}
+.setup-box input:focus{border-color:var(--tm)}
+.setup-btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:11px 24px;border-radius:8px;border:none;background:var(--tx);color:var(--bg);cursor:pointer;width:100%;transition:background .15s}
+.setup-btn:hover{background:#333}
+.setup-err{font-size:12px;color:var(--yt);margin-bottom:12px;display:none}
+.sync-bar{position:fixed;top:0;left:0;right:0;height:3px;z-index:200;background:var(--bl);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.sync-bar.on{transform:scaleX(1);animation:syncPulse 1.5s infinite}
+@keyframes syncPulse{0%,100%{opacity:1}50%{opacity:.5}}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--tx);color:var(--bg);font-size:12px;font-weight:500;padding:10px 18px;border-radius:8px;z-index:200;opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none}
+.toast.on{opacity:1;transform:translateY(0)}
 @media(max-width:1024px){.app{grid-template-columns:1fr}.sb{display:none}.cg{grid-template-columns:1fr}.mn{padding:24px}}
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px}
 </style>
 </head>
 <body>
+<div class="sync-bar" id="syncBar"></div>
+<div class="toast" id="toast"></div>
+<div class="setup-overlay" id="setupOverlay" style="display:none">
+  <div class="setup-box">
+    <h2>Connect Google Sheet</h2>
+    <p>This tool saves all content to a shared Google Sheet so your team stays in sync. You only need to set this up once per browser.</p>
+    <label>Google Sheet ID</label>
+    <input id="setupSheetId" placeholder="e.g. 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms">
+    <label>API Key</label>
+    <input id="setupApiKey" placeholder="e.g. AIzaSyD...">
+    <div class="setup-err" id="setupErr"></div>
+    <button class="setup-btn" onclick="saveSetup()">Connect &amp; Load Data</button>
+    <p style="margin-top:16px;margin-bottom:0;font-size:11px;color:var(--tm)">Need help? See the setup guide in the repository README.</p>
+  </div>
+</div>
 <div class="app">
-
 <aside class="sb">
   <div class="sb-brand"><h1>Researchpreneurs</h1><span>Content Operations</span></div>
   <nav style="flex:1">
@@ -142,15 +140,15 @@ body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;line-
     <div class="nav-i" onclick="sw('gaps',this)"><span class="nav-ic">△</span>Content Gaps</div>
     <div class="nav-i" onclick="sw('notes',this)"><span class="nav-ic">¶</span>Team Notes</div>
   </nav>
-  <div class="sb-ft"><span><span class="dot"></span>Last updated: Mar 7, 2026</span><span>v1.0 — Internal use only</span></div>
+  <div class="sb-ft">
+    <span><span class="dot dot-load" id="statusDot"></span><span id="statusTxt">Connecting...</span></span>
+    <span>v2.0 — Shared via Google Sheets</span>
+    <span style="cursor:pointer;text-decoration:underline" onclick="document.getElementById('setupOverlay').style.display='flex'">Settings</span>
+  </div>
 </aside>
-
 <main class="mn">
-
-<!-- DASHBOARD -->
 <div class="vw on" id="v-dashboard">
   <div class="mh"><div><h2>RESEARCHPRENEURS Content Operations</h2><p>Internal content hub. Track pipeline, collect ideas, and coordinate across channels.</p></div></div>
-
   <div class="sec">
     <div class="sh"><div class="st">Channel Roles</div></div>
     <div class="cg">
@@ -159,40 +157,22 @@ body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;line-
       <div class="cc" data-ch="newsletter"><div class="cc-lbl">Newsletter</div><div class="cc-role">Signal</div><div class="cc-desc">Insider patterns from the RESEARCHPRENEURS network. What the team sees across 850+ experts that no one else can report on. One sharp observation per edition. Short, opinionated, drives to the blog for depth.</div></div>
     </div>
   </div>
-
   <div class="sec">
     <div class="sh"><div class="st">Coming Up</div><div style="margin-left:auto"><button class="btn btn-p" onclick="toggle('cu-fm')">+ Add Content</button></div></div>
     <div class="fm" id="cu-fm">
       <div><div class="fm-lbl">Channel</div><select id="cu-ch"><option value="blog">Blog</option><option value="youtube">YouTube</option><option value="newsletter">Newsletter</option></select></div>
-      <div><div class="fm-lbl">Audience</div><select id="cu-cat"><option>Startups & SMEs</option><option>Corporates</option><option>Partners — Startup Hubs</option><option>Partners — Investors</option><option>Partners — Complementary</option><option>Experts</option><option>Ecosystem / General</option></select></div>
+      <div><div class="fm-lbl">Audience</div><select id="cu-cat"><option>Startups &amp; SMEs</option><option>Corporates</option><option>Partners — Startup Hubs</option><option>Partners — Investors</option><option>Partners — Complementary</option><option>Experts</option><option>Ecosystem / General</option></select></div>
       <div style="flex:1;min-width:180px"><div class="fm-lbl">Title</div><input id="cu-ti" placeholder="Content title"></div>
       <div style="flex:2;min-width:200px"><div class="fm-lbl">Description</div><input id="cu-de" placeholder="Short description..."></div>
       <button onclick="addCU()">Add</button>
     </div>
-    <div id="cu-list" style="display:flex;flex-direction:column;gap:10px">
-      <div class="ci" data-ch="blog">
-        <div class="ci-body"><div class="ci-tags"><span class="ch-tag ch-blog">Blog</span><span class="ci-topic">Partners — Startup Hubs</span></div><div class="ci-title">Article 1 — Startup Hubs & Accelerators</div><div class="ci-desc">The gap between what accelerators offer (mentorship, funding, pitch training) and what startups actually need when they hit R&D execution bottlenecks. Positions R&D orchestration as the missing support layer for ecosystem operators.</div></div>
-        <div class="cma" id="cma-1"><div class="acr"><select id="au-1"><option>Tina</option><option>Ecem</option><option>Shams</option><option>Mehmet</option><option>Sefer</option></select><input id="in-1" placeholder="Add a comment..." onkeydown="if(event.key==='Enter')postCm('1')"><button onclick="postCm('1')">Post</button></div></div>
-        <div class="ci-acts"><button class="ab ab-c" onclick="complete(this.closest('.ci'))">✓ Complete</button><button class="ab ab-d" onclick="del(this.closest('.ci'))">Delete</button></div>
-      </div>
-      <div class="ci" data-ch="blog">
-        <div class="ci-body"><div class="ci-tags"><span class="ch-tag ch-blog">Blog</span><span class="ci-topic">Partners — Investors</span></div><div class="ci-title">Article 2 — What Investors Evaluate in Technical Due Diligence</div><div class="ci-desc">Dual audience: founders preparing to fundraise and investors themselves. What a structured R&D pipeline signals to investors, and how RESEARCHPRENEURS provides the validation layer.</div></div>
-        <div class="cma" id="cma-2"><div class="acr"><select id="au-2"><option>Tina</option><option>Ecem</option><option>Shams</option><option>Mehmet</option><option>Sefer</option></select><input id="in-2" placeholder="Add a comment..." onkeydown="if(event.key==='Enter')postCm('2')"><button onclick="postCm('2')">Post</button></div></div>
-        <div class="ci-acts"><button class="ab ab-c" onclick="complete(this.closest('.ci'))">✓ Complete</button><button class="ab ab-d" onclick="del(this.closest('.ci'))">Delete</button></div>
-      </div>
-    </div>
+    <div id="cu-list" style="display:flex;flex-direction:column;gap:10px"></div>
   </div>
 </div>
-
-<!-- COMPLETED -->
 <div class="vw" id="v-completed">
   <div class="mh"><div><h2>Completed</h2><p>Content marked as complete from the dashboard.</p></div></div>
-  <div id="cp-list" style="display:flex;flex-direction:column;gap:10px">
-    <div class="es" id="cp-empty"><div class="es-ic">✓</div><h3>No completed content yet</h3><p>When you mark content as complete on the dashboard, it appears here.</p></div>
-  </div>
+  <div id="cp-list" style="display:flex;flex-direction:column;gap:10px"></div>
 </div>
-
-<!-- IDEAS -->
 <div class="vw" id="v-ideas">
   <div class="mh"><div><h2>Ideas Board</h2><p>Capture ideas from team conversations, events, and competitor analysis.</p></div><div class="ha"><button class="btn btn-p" onclick="toggle('id-fm')">+ Add Idea</button></div></div>
   <div class="fm" id="id-fm">
@@ -201,31 +181,20 @@ body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;line-
     <div><div class="fm-lbl">By</div><select id="id-au"><option>Tina</option><option>Ecem</option><option>Shams</option><option selected>Mehmet</option><option>Sefer</option></select></div>
     <button onclick="addIdea()">Add</button>
   </div>
-  <div id="id-list" style="display:flex;flex-direction:column;gap:10px">
-    <div class="es" id="id-empty"><div class="es-ic">✦</div><h3>No ideas yet</h3><p>Click "+ Add Idea" to start collecting content ideas from the team.</p></div>
-  </div>
+  <div id="id-list" style="display:flex;flex-direction:column;gap:10px"></div>
 </div>
-
-<!-- CONTENT GAPS -->
 <div class="vw" id="v-gaps">
   <div class="mh"><div><h2>Content Gaps</h2><p>Content needed priorities</p></div><div class="ha"><button class="btn btn-p" onclick="toggle('gp-fm')">+ Add Content Idea</button></div></div>
   <div class="fm" id="gp-fm">
     <div><div class="fm-lbl">Channel</div><select id="gp-ch"><option value="blog">Blog</option><option value="youtube">YouTube</option><option value="newsletter">Newsletter</option></select></div>
-    <div><div class="fm-lbl">Audience</div><select id="gp-cat"><option>Startups & SMEs</option><option>Corporates</option><option>Partners — Startup Hubs</option><option>Partners — Investors</option><option>Partners — Complementary</option><option>Experts</option><option>Ecosystem / General</option></select></div>
+    <div><div class="fm-lbl">Audience</div><select id="gp-cat"><option>Startups &amp; SMEs</option><option>Corporates</option><option>Partners — Startup Hubs</option><option>Partners — Investors</option><option>Partners — Complementary</option><option>Experts</option><option>Ecosystem / General</option></select></div>
     <div style="flex:1;min-width:200px"><div class="fm-lbl">Title</div><input id="gp-ti" placeholder="e.g. No healthtech deep dive"></div>
     <div style="flex:2;min-width:250px"><div class="fm-lbl">Description</div><input id="gp-de" placeholder="Short description of the gap..."></div>
     <div><div class="fm-lbl">Priority</div><select id="gp-pr"><option value="high">High</option><option value="medium" selected>Medium</option><option value="low">Low</option></select></div>
     <button onclick="addGap()">Add</button>
   </div>
-  <div id="gp-list" style="display:flex;flex-direction:column;gap:12px">
-    <div class="gi"><div style="flex:1"><div style="font-weight:600;margin-bottom:4px">Zero partner & investor content</div><div style="font-size:13px;color:var(--ts)">Website has partner page and investor messaging, but blog has nothing for this audience. No articles on due diligence, ecosystem support, or portfolio R&D.</div></div><div style="display:flex;align-items:center;gap:8px;flex-shrink:0"><span class="pl pl-h">High</span><span class="del" onclick="del(this.closest('.gi'))">✕</span></div></div>
-    <div class="gi"><div style="flex:1"><div style="font-weight:600;margin-bottom:4px">No comparison or decision-stage content</div><div style="font-size:13px;color:var(--ts)">No "build vs. buy" frameworks, no fractional vs. full-time comparisons. The highest-converting content type is completely missing.</div></div><div style="display:flex;align-items:center;gap:8px;flex-shrink:0"><span class="pl pl-h">High</span><span class="del" onclick="del(this.closest('.gi'))">✕</span></div></div>
-    <div class="gi"><div style="flex:1"><div style="font-weight:600;margin-bottom:4px">No DACH or regional content</div><div style="font-size:13px;color:var(--ts)">Company based in Heilbronn, operates across DACH, but nothing addresses European or German-speaking startup challenges specifically.</div></div><div style="display:flex;align-items:center;gap:8px;flex-shrink:0"><span class="pl pl-m">Medium</span><span class="del" onclick="del(this.closest('.gi'))">✕</span></div></div>
-    <div class="gi"><div style="flex:1"><div style="font-weight:600;margin-bottom:4px">Blog hasn't caught up to orchestration positioning</div><div style="font-size:13px;color:var(--ts)">Older articles still talk about expert matching and freelancing. Brand has evolved to full Tech & BizDev Orchestration but blog content lags behind.</div></div><div style="display:flex;align-items:center;gap:8px;flex-shrink:0"><span class="pl pl-m">Medium</span><span class="del" onclick="del(this.closest('.gi'))">✕</span></div></div>
-  </div>
+  <div id="gp-list" style="display:flex;flex-direction:column;gap:12px"></div>
 </div>
-
-<!-- TEAM NOTES -->
 <div class="vw" id="v-notes">
   <div class="mh"><div><h2>Team Notes</h2><p>Meeting notes, feedback, and reference material from the team.</p></div><div class="ha"><button class="btn btn-p" onclick="toggle('nt-fm')">+ Add Note</button></div></div>
   <div class="fm" id="nt-fm">
@@ -234,71 +203,213 @@ body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;line-
     <div><div class="fm-lbl">By</div><select id="nt-au"><option>Tina</option><option>Ecem</option><option>Shams</option><option selected>Mehmet</option><option>Sefer</option></select></div>
     <button onclick="addNote()">Add</button>
   </div>
-  <div id="nt-list" style="display:flex;flex-direction:column;gap:10px">
-    <div class="es" id="nt-empty"><div class="es-ic">¶</div><h3>No notes yet</h3><p>Click "+ Add Note" to capture meeting notes, feedback, and reference material.</p></div>
-  </div>
+  <div id="nt-list" style="display:flex;flex-direction:column;gap:10px"></div>
 </div>
-
 </main>
 </div>
-
 <script>
-let cc=10;
+let SHEET_ID='',API_KEY='';
+const SHEETS={pipeline:'Pipeline',completed:'Completed',ideas:'Ideas',gaps:'Gaps',notes:'Notes',comments:'Comments'};
 const ts=()=>{const n=new Date();return n.toLocaleDateString('en-GB',{day:'numeric',month:'short'})+', '+n.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})};
 const ds=()=>{const n=new Date();return n.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})};
-
+function esc(s){if(!s)return'';const d=document.createElement('div');d.textContent=s;return d.innerHTML}
 function sw(v,el){document.querySelectorAll('.vw').forEach(e=>e.classList.remove('on'));document.getElementById('v-'+v).classList.add('on');document.querySelectorAll('.nav-i').forEach(e=>e.classList.remove('on'));el.classList.add('on')}
 function toggle(id){const f=document.getElementById(id);f.style.display=f.style.display==='flex'?'none':'flex'}
 function del(el){el.style.opacity='0';el.style.transition='opacity .15s';setTimeout(()=>el.remove(),150)}
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+function setStatus(type,txt){const dot=document.getElementById('statusDot'),el=document.getElementById('statusTxt');dot.className='dot dot-'+(type==='ok'?'ok':type==='err'?'err':'load');el.textContent=txt}
+function showSync(on){document.getElementById('syncBar').classList.toggle('on',on)}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2000)}
 
-function postCm(id){
-  const i=document.getElementById('in-'+id),a=document.getElementById('au-'+id),t=i.value.trim();
-  if(!t)return;
-  const c=document.getElementById('cma-'+id),r=c.querySelector('.acr'),d=document.createElement('div');
-  d.className='cm';
-  d.innerHTML=`<span class="cm-auth">${a.value}</span><span class="cm-txt">${t}</span><span class="cm-time">${ts()}</span><span class="cm-del" onclick="del(this.parentElement)">✕</span>`;
-  c.insertBefore(d,r);i.value='';i.focus();
+(function init(){
+  const cfg=JSON.parse(localStorage.getItem('rp_sheets_cfg')||'null');
+  if(cfg&&cfg.sheetId&&cfg.apiKey){SHEET_ID=cfg.sheetId;API_KEY=cfg.apiKey;loadAll()}
+  else{document.getElementById('setupOverlay').style.display='flex';setStatus('err','Not connected')}
+})();
+
+function saveSetup(){
+  const sid=document.getElementById('setupSheetId').value.trim(),key=document.getElementById('setupApiKey').value.trim(),err=document.getElementById('setupErr');
+  if(!sid||!key){err.textContent='Both fields are required.';err.style.display='block';return}
+  SHEET_ID=sid;API_KEY=key;localStorage.setItem('rp_sheets_cfg',JSON.stringify({sheetId:sid,apiKey:key}));
+  err.style.display='none';document.getElementById('setupOverlay').style.display='none';loadAll();
 }
 
-function complete(el){
-  const t=el.querySelector('.ci-title').textContent,tg=el.querySelector('.ch-tag').textContent,tp=el.querySelector('.ci-topic')?.textContent||'';
-  const e=document.getElementById('cp-empty');if(e)e.remove();
-  const l=document.getElementById('cp-list'),d=document.createElement('div');d.className='cpi';
-  d.innerHTML=`<div><div class="cpi-title">${t}</div><div class="cpi-meta">${tg}${tp?' · '+tp:''} · Completed ${ds()}</div></div><div style="display:flex;align-items:center;gap:8px"><span class="cp-badge">Done</span><span class="del" onclick="del(this.closest('.cpi'))">✕</span></div>`;
-  l.prepend(d);del(el);
+const BASE=()=>'https://sheets.googleapis.com/v4/spreadsheets/'+SHEET_ID;
+
+async function sheetGet(sheet){
+  const r=await fetch(BASE()+'/values/'+encodeURIComponent(sheet)+'?key='+API_KEY);
+  if(!r.ok)throw new Error('Failed to read '+sheet);
+  const d=await r.json();return d.values||[];
+}
+async function sheetAppend(sheet,row){
+  showSync(true);
+  const r=await fetch(BASE()+'/values/'+encodeURIComponent(sheet)+':append?valueInputOption=RAW&insertDataOption=INSERT_ROWS&key='+API_KEY,{
+    method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({values:[row]})});
+  showSync(false);if(!r.ok)throw new Error('Failed to write to '+sheet);return r.json();
+}
+async function sheetDeleteRow(sheet,rowIndex){
+  showSync(true);
+  const meta=await fetch(BASE()+'?key='+API_KEY+'&fields=sheets(properties(sheetId,title))');
+  const mdata=await meta.json();const s=mdata.sheets.find(sh=>sh.properties.title===sheet);
+  if(!s){showSync(false);return}
+  await fetch(BASE()+':batchUpdate?key='+API_KEY,{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({requests:[{deleteDimension:{range:{sheetId:s.properties.sheetId,dimension:'ROWS',startIndex:rowIndex,endIndex:rowIndex+1}}}]})});
+  showSync(false);
 }
 
-function addCU(){
+async function loadAll(){
+  setStatus('load','Loading...');
+  try{await Promise.all([loadPipeline(),loadCompleted(),loadIdeas(),loadGaps(),loadNotes()]);
+    setStatus('ok','Connected · '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}));
+  }catch(e){console.error(e);setStatus('err','Connection error');toast('Error loading data. Check Sheet ID & API key.')}
+}
+
+// PIPELINE
+async function loadPipeline(){
+  const rows=await sheetGet(SHEETS.pipeline),list=document.getElementById('cu-list');list.innerHTML='';
+  const data=rows.length&&rows[0][0]==='id'?rows.slice(1):rows;
+  if(!data.length){list.innerHTML='<div class="es"><div class="es-ic">◻</div><h3>No content in pipeline</h3><p>Click "+ Add Content" to start.</p></div>';return}
+  data.reverse();for(const r of data){const[id,ch,cat,ti,de]=r;list.appendChild(buildCI(id,ch,cat,ti,de))}
+  await loadComments();
+}
+function buildCI(id,ch,cat,ti,de){
+  const d=document.createElement('div');d.className='ci';d.setAttribute('data-ch',ch);d.setAttribute('data-id',id);
+  const cl='ch-'+ch,lb=ch.charAt(0).toUpperCase()+ch.slice(1);
+  d.innerHTML='<div class="ci-body"><div class="ci-tags"><span class="ch-tag '+cl+'">'+lb+'</span><span class="ci-topic">'+esc(cat)+'</span></div><div class="ci-title">'+esc(ti)+'</div>'+(de?'<div class="ci-desc">'+esc(de)+'</div>':'')+'</div><div class="cma" data-cma="'+id+'"><div class="acr"><select class="cm-au-sel"><option>Tina</option><option>Ecem</option><option>Shams</option><option>Mehmet</option><option>Sefer</option></select><input class="cm-input" placeholder="Add a comment..." onkeydown="if(event.key===\'Enter\')postCm(this)"><button onclick="postCm(this.previousElementSibling)">Post</button></div></div><div class="ci-acts"><button class="ab ab-c" onclick="completePipeline(this.closest(\'.ci\'))">✓ Complete</button><button class="ab ab-d" onclick="delPipeline(this.closest(\'.ci\'))">Delete</button></div>';
+  return d;
+}
+async function addCU(){
   const ch=document.getElementById('cu-ch').value,cat=document.getElementById('cu-cat').value,ti=document.getElementById('cu-ti').value.trim(),de=document.getElementById('cu-de').value.trim();
-  if(!ti)return;cc++;const id=cc,cl='ch-'+ch,lb=ch.charAt(0).toUpperCase()+ch.slice(1);
-  const l=document.getElementById('cu-list'),d=document.createElement('div');d.className='ci';d.setAttribute('data-ch',ch);
-  d.innerHTML=`<div class="ci-body"><div class="ci-tags"><span class="ch-tag ${cl}">${lb}</span><span class="ci-topic">${cat}</span></div><div class="ci-title">${ti}</div>${de?`<div class="ci-desc">${de}</div>`:''}</div><div class="cma" id="cma-${id}"><div class="acr"><select id="au-${id}"><option>Tina</option><option>Ecem</option><option>Shams</option><option>Mehmet</option><option>Sefer</option></select><input id="in-${id}" placeholder="Add a comment..." onkeydown="if(event.key==='Enter')postCm('${id}')"><button onclick="postCm('${id}')">Post</button></div></div><div class="ci-acts"><button class="ab ab-c" onclick="complete(this.closest('.ci'))">✓ Complete</button><button class="ab ab-d" onclick="del(this.closest('.ci'))">Delete</button></div>`;
-  l.prepend(d);document.getElementById('cu-ti').value='';document.getElementById('cu-de').value='';toggle('cu-fm');
+  if(!ti)return;const id=uid();
+  try{await sheetAppend(SHEETS.pipeline,[id,ch,cat,ti,de,new Date().toISOString()]);
+    const list=document.getElementById('cu-list'),es=list.querySelector('.es');if(es)es.remove();
+    list.prepend(buildCI(id,ch,cat,ti,de));document.getElementById('cu-ti').value='';document.getElementById('cu-de').value='';toggle('cu-fm');toast('Content added');
+  }catch(e){console.error(e);toast('Error saving')}
+}
+async function delPipeline(el){
+  const id=el.getAttribute('data-id');del(el);
+  try{const rows=await sheetGet(SHEETS.pipeline);const idx=rows.findIndex(r=>r[0]===id);if(idx>=0)await sheetDeleteRow(SHEETS.pipeline,idx);toast('Deleted');
+  }catch(e){console.error(e);toast('Error deleting')}
+}
+async function completePipeline(el){
+  const id=el.getAttribute('data-id'),ti=el.querySelector('.ci-title').textContent,tg=el.querySelector('.ch-tag').textContent,tp=el.querySelector('.ci-topic')?.textContent||'',ch=el.getAttribute('data-ch');
+  del(el);
+  try{await sheetAppend(SHEETS.completed,[uid(),ch,tg,tp,ti,new Date().toISOString()]);
+    const rows=await sheetGet(SHEETS.pipeline);const idx=rows.findIndex(r=>r[0]===id);if(idx>=0)await sheetDeleteRow(SHEETS.pipeline,idx);
+    const list=document.getElementById('cp-list'),es=list.querySelector('.es');if(es)es.remove();
+    const d=document.createElement('div');d.className='cpi';d.innerHTML='<div><div class="cpi-title">'+esc(ti)+'</div><div class="cpi-meta">'+esc(tg)+(tp?' · '+esc(tp):'')+' · Completed '+ds()+'</div></div><div style="display:flex;align-items:center;gap:8px"><span class="cp-badge">Done</span></div>';
+    list.prepend(d);toast('Marked complete');
+  }catch(e){console.error(e);toast('Error completing')}
 }
 
-function addGap(){
-  const ch=document.getElementById('gp-ch').value,cat=document.getElementById('gp-cat').value,ti=document.getElementById('gp-ti').value.trim(),de=document.getElementById('gp-de').value.trim(),pr=document.getElementById('gp-pr').value;
-  if(!ti)return;
-  const cv=ch==='blog'?'var(--bl)':ch==='youtube'?'var(--yt)':'var(--nl)',cl='ch-'+ch,lb=ch.charAt(0).toUpperCase()+ch.slice(1),pc='pl-'+pr[0],pt=pr.charAt(0).toUpperCase()+pr.slice(1);
-  const l=document.getElementById('gp-list'),d=document.createElement('div');d.className='gi';d.style.borderLeftColor=cv;
-  d.innerHTML=`<div style="flex:1"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="ch-tag ${cl}">${lb}</span><span style="font-size:11px;color:var(--tm)">${cat}</span></div><div style="font-weight:600;margin-bottom:4px">${ti}</div>${de?`<div style="font-size:13px;color:var(--ts)">${de}</div>`:''}</div><div style="display:flex;align-items:center;gap:8px;flex-shrink:0"><span class="pl ${pc}">${pt}</span><span class="del" onclick="del(this.closest('.gi'))">✕</span></div>`;
-  l.prepend(d);document.getElementById('gp-ti').value='';document.getElementById('gp-de').value='';toggle('gp-fm');
+// COMMENTS
+async function loadComments(){
+  try{const rows=await sheetGet(SHEETS.comments);const data=rows.length&&rows[0][0]==='id'?rows.slice(1):rows;
+    for(const r of data){const[cid,parentId,author,text,time]=r;const cma=document.querySelector('[data-cma="'+parentId+'"]');if(!cma)continue;
+      const acr=cma.querySelector('.acr'),d=document.createElement('div');d.className='cm';d.setAttribute('data-cid',cid);
+      d.innerHTML='<span class="cm-auth">'+esc(author)+'</span><span class="cm-txt">'+esc(text)+'</span><span class="cm-time">'+esc(time)+'</span><span class="cm-del" onclick="delComment(this.parentElement)">✕</span>';
+      cma.insertBefore(d,acr)}
+  }catch(e){console.error('Comments load error',e)}
+}
+async function postCm(inputEl){
+  const cma=inputEl.closest('.cma'),parentId=cma.getAttribute('data-cma'),author=cma.querySelector('.cm-au-sel').value,text=inputEl.value.trim();
+  if(!text)return;const cid=uid(),time=ts();
+  try{await sheetAppend(SHEETS.comments,[cid,parentId,author,text,time]);
+    const acr=cma.querySelector('.acr'),d=document.createElement('div');d.className='cm';d.setAttribute('data-cid',cid);
+    d.innerHTML='<span class="cm-auth">'+esc(author)+'</span><span class="cm-txt">'+esc(text)+'</span><span class="cm-time">'+esc(time)+'</span><span class="cm-del" onclick="delComment(this.parentElement)">✕</span>';
+    cma.insertBefore(d,acr);inputEl.value='';inputEl.focus();
+  }catch(e){console.error(e);toast('Error posting comment')}
+}
+async function delComment(el){
+  const cid=el.getAttribute('data-cid');del(el);
+  try{const rows=await sheetGet(SHEETS.comments);const idx=rows.findIndex(r=>r[0]===cid);if(idx>=0)await sheetDeleteRow(SHEETS.comments,idx);
+  }catch(e){console.error(e)}
 }
 
-function addIdea(){
+// COMPLETED
+async function loadCompleted(){
+  const rows=await sheetGet(SHEETS.completed),list=document.getElementById('cp-list');list.innerHTML='';
+  const data=rows.length&&rows[0][0]==='id'?rows.slice(1):rows;
+  if(!data.length){list.innerHTML='<div class="es"><div class="es-ic">✓</div><h3>No completed content yet</h3><p>When you mark content as complete on the dashboard, it appears here.</p></div>';return}
+  data.reverse();for(const r of data){const[id,ch,tg,tp,ti,date]=r;const d=document.createElement('div');d.className='cpi';
+    d.innerHTML='<div><div class="cpi-title">'+esc(ti)+'</div><div class="cpi-meta">'+esc(tg)+(tp?' · '+esc(tp):'')+' · Completed '+new Date(date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})+'</div></div><div style="display:flex;align-items:center;gap:8px"><span class="cp-badge">Done</span></div>';
+    list.appendChild(d)}
+}
+
+// IDEAS
+async function loadIdeas(){
+  const rows=await sheetGet(SHEETS.ideas),list=document.getElementById('id-list');list.innerHTML='';
+  const data=rows.length&&rows[0][0]==='id'?rows.slice(1):rows;
+  if(!data.length){list.innerHTML='<div class="es"><div class="es-ic">✦</div><h3>No ideas yet</h3><p>Click "+ Add Idea" to start collecting content ideas.</p></div>';return}
+  data.reverse();for(const r of data){const[id,ti,de,au]=r;list.appendChild(buildIdeaEl(id,ti,de,au))}
+}
+function buildIdeaEl(id,ti,de,au){
+  const d=document.createElement('div');d.className='ii';d.setAttribute('data-id',id);
+  d.innerHTML='<div style="flex:1"><div class="ii-title">'+esc(ti)+'</div>'+(de?'<div class="ii-desc">'+esc(de)+'</div>':'')+'<div class="ii-auth">Added by '+esc(au)+'</div></div><span class="del" onclick="delIdea(this.closest(\'.ii\'))">✕</span>';
+  return d;
+}
+async function addIdea(){
   const ti=document.getElementById('id-ti').value.trim(),de=document.getElementById('id-de').value.trim(),au=document.getElementById('id-au').value;
-  if(!ti)return;const e=document.getElementById('id-empty');if(e)e.remove();
-  const l=document.getElementById('id-list'),d=document.createElement('div');d.className='ii';
-  d.innerHTML=`<div style="flex:1"><div class="ii-title">${ti}</div>${de?`<div class="ii-desc">${de}</div>`:''}<div class="ii-auth">Added by ${au}</div></div><span class="del" onclick="del(this.closest('.ii'))">✕</span>`;
-  l.prepend(d);document.getElementById('id-ti').value='';document.getElementById('id-de').value='';toggle('id-fm');
+  if(!ti)return;const id=uid();
+  try{await sheetAppend(SHEETS.ideas,[id,ti,de,au]);const list=document.getElementById('id-list'),es=list.querySelector('.es');if(es)es.remove();
+    list.prepend(buildIdeaEl(id,ti,de,au));document.getElementById('id-ti').value='';document.getElementById('id-de').value='';toggle('id-fm');toast('Idea added');
+  }catch(e){console.error(e);toast('Error saving idea')}
+}
+async function delIdea(el){
+  const id=el.getAttribute('data-id');del(el);
+  try{const rows=await sheetGet(SHEETS.ideas);const idx=rows.findIndex(r=>r[0]===id);if(idx>=0)await sheetDeleteRow(SHEETS.ideas,idx);toast('Deleted');
+  }catch(e){console.error(e)}
 }
 
-function addNote(){
+// GAPS
+async function loadGaps(){
+  const rows=await sheetGet(SHEETS.gaps),list=document.getElementById('gp-list');list.innerHTML='';
+  const data=rows.length&&rows[0][0]==='id'?rows.slice(1):rows;
+  if(!data.length){list.innerHTML='<div class="es"><div class="es-ic">△</div><h3>No content gaps tracked</h3><p>Click "+ Add Content Idea" to track missing content areas.</p></div>';return}
+  data.reverse();for(const r of data){const[id,ch,cat,ti,de,pr]=r;list.appendChild(buildGapEl(id,ch,cat,ti,de,pr))}
+}
+function buildGapEl(id,ch,cat,ti,de,pr){
+  const cv=ch==='blog'?'var(--bl)':ch==='youtube'?'var(--yt)':'var(--nl)',cl='ch-'+ch,lb=ch.charAt(0).toUpperCase()+ch.slice(1),pc='pl-'+pr[0],pt=pr.charAt(0).toUpperCase()+pr.slice(1);
+  const d=document.createElement('div');d.className='gi';d.style.borderLeftColor=cv;d.setAttribute('data-id',id);
+  d.innerHTML='<div style="flex:1"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="ch-tag '+cl+'">'+lb+'</span><span style="font-size:11px;color:var(--tm)">'+esc(cat)+'</span></div><div style="font-weight:600;margin-bottom:4px">'+esc(ti)+'</div>'+(de?'<div style="font-size:13px;color:var(--ts)">'+esc(de)+'</div>':'')+'</div><div style="display:flex;align-items:center;gap:8px;flex-shrink:0"><span class="pl '+pc+'">'+pt+'</span><span class="del" onclick="delGap(this.closest(\'.gi\'))">✕</span></div>';
+  return d;
+}
+async function addGap(){
+  const ch=document.getElementById('gp-ch').value,cat=document.getElementById('gp-cat').value,ti=document.getElementById('gp-ti').value.trim(),de=document.getElementById('gp-de').value.trim(),pr=document.getElementById('gp-pr').value;
+  if(!ti)return;const id=uid();
+  try{await sheetAppend(SHEETS.gaps,[id,ch,cat,ti,de,pr]);const list=document.getElementById('gp-list'),es=list.querySelector('.es');if(es)es.remove();
+    list.prepend(buildGapEl(id,ch,cat,ti,de,pr));document.getElementById('gp-ti').value='';document.getElementById('gp-de').value='';toggle('gp-fm');toast('Gap added');
+  }catch(e){console.error(e);toast('Error saving gap')}
+}
+async function delGap(el){
+  const id=el.getAttribute('data-id');del(el);
+  try{const rows=await sheetGet(SHEETS.gaps);const idx=rows.findIndex(r=>r[0]===id);if(idx>=0)await sheetDeleteRow(SHEETS.gaps,idx);toast('Deleted');
+  }catch(e){console.error(e)}
+}
+
+// NOTES
+async function loadNotes(){
+  const rows=await sheetGet(SHEETS.notes),list=document.getElementById('nt-list');list.innerHTML='';
+  const data=rows.length&&rows[0][0]==='id'?rows.slice(1):rows;
+  if(!data.length){list.innerHTML='<div class="es"><div class="es-ic">¶</div><h3>No notes yet</h3><p>Click "+ Add Note" to capture meeting notes and reference material.</p></div>';return}
+  data.reverse();for(const r of data){const[id,ti,de,au,date]=r;list.appendChild(buildNoteEl(id,ti,de,au,date))}
+}
+function buildNoteEl(id,ti,de,au,date){
+  const d=document.createElement('div');d.className='ii';d.setAttribute('data-id',id);
+  d.innerHTML='<div style="flex:1">'+(ti?'<div class="ii-title">'+esc(ti)+'</div>':'')+(de?'<div class="ii-desc">'+esc(de)+'</div>':'')+'<div class="ii-auth">'+esc(au)+' · '+(date?new Date(date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):ds())+'</div></div><span class="del" onclick="delNote(this.closest(\'.ii\'))">✕</span>';
+  return d;
+}
+async function addNote(){
   const ti=document.getElementById('nt-ti').value.trim(),de=document.getElementById('nt-de').value.trim(),au=document.getElementById('nt-au').value;
-  if(!ti&&!de)return;const e=document.getElementById('nt-empty');if(e)e.remove();
-  const l=document.getElementById('nt-list'),d=document.createElement('div');d.className='ii';
-  d.innerHTML=`<div style="flex:1">${ti?`<div class="ii-title">${ti}</div>`:''}${de?`<div class="ii-desc">${de}</div>`:''}<div class="ii-auth">${au} · ${ds()}</div></div><span class="del" onclick="del(this.closest('.ii'))">✕</span>`;
-  l.prepend(d);document.getElementById('nt-ti').value='';document.getElementById('nt-de').value='';toggle('nt-fm');
+  if(!ti&&!de)return;const id=uid();
+  try{await sheetAppend(SHEETS.notes,[id,ti,de,au,new Date().toISOString()]);const list=document.getElementById('nt-list'),es=list.querySelector('.es');if(es)es.remove();
+    list.prepend(buildNoteEl(id,ti,de,au,new Date().toISOString()));document.getElementById('nt-ti').value='';document.getElementById('nt-de').value='';toggle('nt-fm');toast('Note added');
+  }catch(e){console.error(e);toast('Error saving note')}
+}
+async function delNote(el){
+  const id=el.getAttribute('data-id');del(el);
+  try{const rows=await sheetGet(SHEETS.notes);const idx=rows.findIndex(r=>r[0]===id);if(idx>=0)await sheetDeleteRow(SHEETS.notes,idx);toast('Deleted');
+  }catch(e){console.error(e)}
 }
 </script>
 </body>
